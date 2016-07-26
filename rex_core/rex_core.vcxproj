@@ -63,6 +63,7 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="launch\default.launch" />
     <None Include="rex_core-Debug.vgdbsettings" />
     <None Include="rex_core-Release.vgdbsettings" />
   </ItemGroup>
@@ -74,6 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="package.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\rex_core\rex_core.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,15 +15,5 @@
 //	You should have received a copy of the GNU General Public License
 //	along with this program.If not, see < http ://www.gnu.org/licenses/>.
 //	========================================================================
- 
-#include <iostream>
-#include <pcl/common/common_headers.h>
-#include <Eigen/Core>
- 
-#include "../include/rex_core/rex_core.hpp"
 
-int main()
-{
-	std::cout << "Hello World!" << std::endl;
-	return 0;
-}
+#pragma once

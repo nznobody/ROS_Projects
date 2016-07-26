@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="rex_core" type="rex_core" name="rex_core" output="screen">
+	</node>
+</launch>

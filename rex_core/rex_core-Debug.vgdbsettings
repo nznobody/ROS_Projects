@@ -27,6 +27,7 @@
         <string>*.xml</string>
         <string>*.cfg</string>
         <string>*.cpp</string>
+        <string>*.hpp</string>
         <string>*.h</string>
         <string>*.c</string>
         <string>*.cc</string>
@@ -40,7 +41,6 @@
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
-      <SelectedDirectories />
     </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
     <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>
