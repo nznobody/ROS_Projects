@@ -1,0 +1,28 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Rex_ROS_Core</Name>
+    <Description>Base template to start all ros projects from</Description>
+    <ProjectType>VC</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Rex_ROS_Core</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>ROS.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="rex_core.vcxproj" File="rex_core.vcxproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.vcxproj.filters">rex_core.vcxproj.filters</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$-Debug.vgdbsettings">rex_core-Debug.vgdbsettings</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$-Release.vgdbsettings">rex_core-Release.vgdbsettings</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.cpp">SRC\rex_core.cpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$projectname$.hpp">INCLUDE\$safeprojectname$\rex_core.hpp</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="default.launch">LAUNCH\default.launch</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="package.xml">package.xml</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="CMakeLists.txt">CMakeLists.txt</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

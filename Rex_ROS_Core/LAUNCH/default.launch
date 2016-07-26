@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="$safeprojectname$" type="$safeprojectname$" name="$safeprojectname$" output="screen">
+	</node>
+</launch>
