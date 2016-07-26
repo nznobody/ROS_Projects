@@ -197,6 +197,9 @@
 #ifndef __UINT32_MAX__
 #define __UINT32_MAX__ 4294967295U
 #endif
+#if !defined(__GXX_EXPERIMENTAL_CXX0X__) && defined(__SYSPROGS_CODESENSE__)
+#define __GXX_EXPERIMENTAL_CXX0X__ 1
+#endif
 #ifndef __ULFRACT_MAX__
 #define __ULFRACT_MAX__ 0XFFFFFFFFP-32ULR
 #endif
@@ -353,6 +356,9 @@
 #ifndef __BIGGEST_ALIGNMENT__
 #define __BIGGEST_ALIGNMENT__ 8
 #endif
+#ifndef __GNUC_STDC_INLINE__
+#define __GNUC_STDC_INLINE__ 1
+#endif
 #ifndef __DQ_IBIT__
 #define __DQ_IBIT__ 0
 #endif
@@ -394,7 +400,7 @@
 #endif
 //VS2005-2012 treats all files as C++, while VS2013+ can treat C files correctly.
 #if defined(_MSC_VER) && (_MSC_VER < 1800 || defined(__cplusplus))
-#define __cplusplus 199711L
+#define __cplusplus 201103L
 #endif
 #ifndef __DEC128_MAX__
 #define __DEC128_MAX__ 9.999999999999999999999999999999999E6144DL
@@ -1058,9 +1064,6 @@
 #endif
 #ifndef __UINT_FAST16_MAX__
 #define __UINT_FAST16_MAX__ 4294967295U
-#endif
-#ifndef __GNUC_GNU_INLINE__
-#define __GNUC_GNU_INLINE__ 1
 #endif
 #ifndef __GCC_ATOMIC_SHORT_LOCK_FREE
 #define __GCC_ATOMIC_SHORT_LOCK_FREE 2

@@ -5,6 +5,8 @@
     <CustomSourceDirectories>
       <Directories />
       <PathStyle>RemoteUnix</PathStyle>
+      <LocalDirForAbsolutePaths />
+      <LocalDirForRelativePaths />
     </CustomSourceDirectories>
     <BuildHost>
       <HostName>10.0.10.212</HostName>
@@ -197,9 +199,20 @@
   <UserDefinedVariables />
   <ImportedPropertySheets />
   <CodeSense>
-    <Enabled>Unknown</Enabled>
+    <Enabled>True</Enabled>
+    <CFLAGS />
+    <CXXFLAGS />
+    <ExternalSourceFileList />
     <ExtraSettings>
       <HideErrorsInSystemHeaders>true</HideErrorsInSystemHeaders>
+      <DiscoverySettings>
+        <Mode>Disabled</Mode>
+        <SearchInProjectDir>true</SearchInProjectDir>
+        <SearchInSourceDirs>true</SearchInSourceDirs>
+        <SearchInIncludeSubdirs>true</SearchInIncludeSubdirs>
+        <IgnoredDirs />
+        <IgnoredHeaders />
+      </DiscoverySettings>
     </ExtraSettings>
   </CodeSense>
 </VisualGDBProjectSettings2>

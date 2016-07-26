@@ -18,9 +18,7 @@ catkin_package(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 )
 
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+include_directories()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 
@@ -29,7 +27,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 ###########
 # Add ouputs
 add_executable(rex_core src/${PROJECT_NAME}.cpp)
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} "${LIBRARIES_FROM_REFERENCES}")
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 
 #############
@@ -48,4 +46,3 @@ install(DIRECTORY include/${PROJECT_NAME}/
    FILES_MATCHING PATTERN "*.h"
    PATTERN ".svn" EXCLUDE
 )
-target_link_libraries(rex_core  "${LIBRARIES_FROM_REFERENCES}")

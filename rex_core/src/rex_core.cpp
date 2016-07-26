@@ -17,6 +17,8 @@
 //	========================================================================
  
 #include <iostream>
+#include <pcl/common/common_headers.h>
+#include <Eigen/Core>
  
 int main()
 {

@@ -9,6 +9,17 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
 )
 # e.g. find_package(Boost REQUIRED COMPONENTS system)
+find_package(PCL REQUIRED)
+find_package(Eigen3 REQUIRED)
+
+set( LIBS ${LIBS} 
+${PCL_LIBRARIES}
+${Eigen3_LIBRARIES}
+)
+include_directories(
+${PCL_INCLUDE_DIRS}
+${Eigen3_INCLUDE_DIRS}
+)
 
 ## Required for ros + catkin_make
 catkin_package(
@@ -16,10 +27,7 @@ catkin_package(
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-)
-
-include_directories(
-  ${catkin_INCLUDE_DIRS}
+ DEPENDS pcl
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
@@ -29,7 +37,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 ###########
 # Add ouputs
 add_executable(rex_core src/${PROJECT_NAME}.cpp)
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} "${LIBRARIES_FROM_REFERENCES}")
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${LIBS})
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 
 #############
@@ -48,4 +56,3 @@ install(DIRECTORY include/${PROJECT_NAME}/
    FILES_MATCHING PATTERN "*.h"
    PATTERN ".svn" EXCLUDE
 )
-target_link_libraries(rex_core  "${LIBRARIES_FROM_REFERENCES}")
