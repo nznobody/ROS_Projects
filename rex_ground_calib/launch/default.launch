@@ -1,0 +1,8 @@
+<launch>
+	<node pkg="rex_ground_calib" type="rex_ground_calib" name="rex_ground_calib" output="screen">
+		<param name="input_cloud" value="/camera/point_cloud/cloud"/>
+    <param name="odom_frame" value="/odom"/>
+		<param name="camera_frame" value="/zed_initial_frame"/>
+    <param name="floor_tolerance" value="0.0750"/>
+	</node>
+</launch>
