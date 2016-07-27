@@ -207,7 +207,7 @@
     <ExtraSettings>
       <HideErrorsInSystemHeaders>true</HideErrorsInSystemHeaders>
       <DiscoverySettings>
-        <Mode>Disabled</Mode>
+        <Mode>Enabled</Mode>
         <SearchInProjectDir>true</SearchInProjectDir>
         <SearchInSourceDirs>true</SearchInSourceDirs>
         <SearchInIncludeSubdirs>true</SearchInIncludeSubdirs>

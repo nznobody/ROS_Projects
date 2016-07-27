@@ -197,7 +197,7 @@ void publishImage(cv::Mat img, image_transport::Publisher &pub_img, string img_f
 void publishDepth(cv::Mat depth, image_transport::Publisher &pub_depth, string depth_frame_id, ros::Time t) {
 	string encoding;
 	if (openniDepthMode) {
-		depth * = 1000.0f;
+		depth *= 1000.0f;
 		depth.convertTo(depth, CV_16UC1); // in mm, rounded
 		encoding = sensor_msgs::image_encodings::TYPE_16UC1;
 	}
