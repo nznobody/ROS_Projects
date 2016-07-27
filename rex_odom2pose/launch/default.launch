@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="rex_odom2pose" type="rex_odom2pose" name="rex_odom2pose" >
+    <param name="input_topic" value="/odometry/filtered"/>
+    <param name="output_topic" value="/pose/filtered"/>
+  </node>
+</launch>

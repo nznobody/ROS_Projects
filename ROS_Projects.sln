@@ -4,6 +4,8 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex_ground_calib", "rex_ground_calib\rex_ground_calib.vcxproj", "{8157D371-BDF2-4D37-8CEB-6CB53E7F60FC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex_odom2pose", "rex_odom2pose\rex_odom2pose.vcxproj", "{AF9FA0CD-2A7B-46F8-82FC-6810A02E5C73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -14,6 +16,10 @@ Global
 		{8157D371-BDF2-4D37-8CEB-6CB53E7F60FC}.Debug|x86.Build.0 = Debug|Win32
 		{8157D371-BDF2-4D37-8CEB-6CB53E7F60FC}.Release|x86.ActiveCfg = Release|Win32
 		{8157D371-BDF2-4D37-8CEB-6CB53E7F60FC}.Release|x86.Build.0 = Release|Win32
+		{AF9FA0CD-2A7B-46F8-82FC-6810A02E5C73}.Debug|x86.ActiveCfg = Debug|Win32
+		{AF9FA0CD-2A7B-46F8-82FC-6810A02E5C73}.Debug|x86.Build.0 = Debug|Win32
+		{AF9FA0CD-2A7B-46F8-82FC-6810A02E5C73}.Release|x86.ActiveCfg = Release|Win32
+		{AF9FA0CD-2A7B-46F8-82FC-6810A02E5C73}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
