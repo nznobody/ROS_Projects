@@ -6,6 +6,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex_ground_calib", "rex_gro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex_odom2pose", "rex_odom2pose\rex_odom2pose.vcxproj", "{AF9FA0CD-2A7B-46F8-82FC-6810A02E5C73}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex_zed_wrapper", "rex_zed_wrapper\rex_zed_wrapper.vcxproj", "{2A244A1A-2A34-4B45-82CB-FDE335BFC153}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -20,6 +22,10 @@ Global
 		{AF9FA0CD-2A7B-46F8-82FC-6810A02E5C73}.Debug|x86.Build.0 = Debug|Win32
 		{AF9FA0CD-2A7B-46F8-82FC-6810A02E5C73}.Release|x86.ActiveCfg = Release|Win32
 		{AF9FA0CD-2A7B-46F8-82FC-6810A02E5C73}.Release|x86.Build.0 = Release|Win32
+		{2A244A1A-2A34-4B45-82CB-FDE335BFC153}.Debug|x86.ActiveCfg = Debug|Win32
+		{2A244A1A-2A34-4B45-82CB-FDE335BFC153}.Debug|x86.Build.0 = Debug|Win32
+		{2A244A1A-2A34-4B45-82CB-FDE335BFC153}.Release|x86.ActiveCfg = Release|Win32
+		{2A244A1A-2A34-4B45-82CB-FDE335BFC153}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
