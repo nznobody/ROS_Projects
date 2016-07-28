@@ -11,6 +11,7 @@
 #include "rex_gridmapping/ElevationMap.hpp"
 #include "rex_gridmapping/sensor_processors/KinectSensorProcessor.hpp"
 #include "rex_gridmapping/sensor_processors/StereoSensorProcessor.hpp"
+#include "rex_gridmapping/sensor_processors/Stereo2SensorProcessor.hpp"
 #include "rex_gridmapping/sensor_processors/LaserSensorProcessor.hpp"
 #include "rex_gridmapping/sensor_processors/PerfectSensorProcessor.hpp"
 
@@ -184,6 +185,8 @@ bool ElevationMapping::readParameters()
     sensorProcessor_.reset(new KinectSensorProcessor(nodeHandle_, transformListener_));
   } else if (sensorType == "Stereo") {
     sensorProcessor_.reset(new StereoSensorProcessor(nodeHandle_, transformListener_));
+  } else if (sensorType == "Stereo2") {
+	sensorProcessor_.reset(new Stereo2SensorProcessor(nodeHandle_, transformListener_));
   } else if (sensorType == "Laser") {
     sensorProcessor_.reset(new LaserSensorProcessor(nodeHandle_, transformListener_));
   } else if (sensorType == "Perfect") {

@@ -63,6 +63,22 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="config\elevation_maps\dense.yaml" />
+    <None Include="config\elevation_maps\elev_rex.yaml" />
+    <None Include="config\elevation_maps\long_range.yaml" />
+    <None Include="config\robots\default.yaml" />
+    <None Include="config\robots\robot_rex.yaml" />
+    <None Include="config\sensor_processors\aslam.yaml" />
+    <None Include="config\sensor_processors\hokuyo_utm-30lx.yaml" />
+    <None Include="config\sensor_processors\kinect_nguyen_et_al.yaml" />
+    <None Include="config\sensor_processors\perfect.yaml" />
+    <None Include="config\sensor_processors\primesense_carmine_109_short_range_datasheet.yaml" />
+    <None Include="config\sensor_processors\primesense_carmine_109_short_range_uncalibrated.yaml" />
+    <None Include="config\sensor_processors\sens_zed.yaml" />
+    <None Include="config\sensor_processors\stereo2_zed.yaml" />
+    <None Include="config\sensor_processors\velodyne_HDL-32E.yaml" />
+    <None Include="config\visualization\fused.yaml" />
+    <None Include="config\visualization\raw.yaml" />
     <None Include="launch\visualization.launch" />
     <None Include="launch\zed.launch" />
     <None Include="rex_gridmapping-Debug.vgdbsettings" />

@@ -23,6 +23,7 @@
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
       <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_gridmapping</RemoteDirectory>
       <FileMasks>
+        <string>*.yaml</string>
         <string>*.launch</string>
         <string>*.xml</string>
         <string>*.cfg</string>
@@ -41,7 +42,6 @@
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
-      <SelectedDirectories />
     </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
     <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>

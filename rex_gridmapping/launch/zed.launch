@@ -1,22 +1,11 @@
 <launch>
+	
+	<include file="$(find rex_gridmapping)/launch/visualization.launch" />
 
-	<!-- file="$(find zed_wrapper)/launch/zed.launch" /-->
-	
-	<include file="$(find zed_wrapper)/launch/ekf.launch" />
-	
-	<!--include file="$(find duo_wrapper_ros)/launch/ekf_withDuo.launch" /-->
-	<!--include file="$(find imu_complementary_filter)/launch/duo.launch" /-->
-	
-	<include file="$(find odom2pose)/launch/default.launch" />
-	
-	<include file="$(find nzn_mapping)/launch/visualization.launch" />
-	
-	<include file="$(find rexmodel)/launch/walking.launch" />
-
- 	<node pkg="nzn_mapping" type="nzn_mapping" name="nzn_mapping" output="screen">
-    	 <rosparam command="load" file="$(find nzn_mapping)/config/robots/robot_rex.yaml" />
-    	 <rosparam command="load" file="$(find nzn_mapping)/config/elevation_maps/elev_rex.yaml" />
-    	 <rosparam command="load" file="$(find nzn_mapping)/config/sensor_processors/stereo2_zed.yaml" />
+ 	<node pkg="rex_gridmapping" type="rex_gridmapping" name="rex_gridmapping" output="screen">
+    	 <rosparam command="load" file="$(find rex_gridmapping)/config/robots/robot_rex.yaml" />
+    	 <rosparam command="load" file="$(find rex_gridmapping)/config/elevation_maps/elev_rex.yaml" />
+    	 <rosparam command="load" file="$(find rex_gridmapping)/config/sensor_processors/perfect.yaml" />
     </node>
 
 </launch>
