@@ -34,24 +34,6 @@ find_package(OpenCV ${OCV_VERSION} COMPONENTS core highgui imgproc REQUIRED)
 find_package(CUDA ${CUDA_VERSION} REQUIRED)
 find_package(PCL REQUIRED)
 
-set( LIBS ${LIBS} 
-	${ZED_LIBRARIES}
-	${CUDA_LIBRARIES} ${CUDA_nppi_LIBRARY} ${CUDA_npps_LIBRARY}
-	${OpenCV_LIBS}
-	${PCL_LIBRARIES}
-)
-include_directories(
-	${catkin_INCLUDE_DIRS}
-	${CUDA_INCLUDE_DIRS}
-	${ZED_INCLUDE_DIRS}
-	${OpenCV_INCLUDE_DIRS}
-	${PCL_INCLUDE_DIRS}
-)
-link_directories(${ZED_LIBRARY_DIR})
-link_directories(${CUDA_LIBRARY_DIRS})
-link_directories(${OpenCV_LIBRARY_DIRS})
-link_directories(${PCL_LIBRARY_DIRS})
-
 generate_dynamic_reconfigure_options(
   cfg/Zed.cfg
 )
@@ -73,6 +55,24 @@ catkin_package(
     pcl_conversions
 )
 
+set( LIBS ${LIBS} 
+	${ZED_LIBRARIES}
+	${CUDA_LIBRARIES} ${CUDA_nppi_LIBRARY} ${CUDA_npps_LIBRARY}
+	${OpenCV_LIBS}
+	${PCL_LIBRARIES}
+)
+include_directories(
+	${catkin_INCLUDE_DIRS}
+	${CUDA_INCLUDE_DIRS}
+	${ZED_INCLUDE_DIRS}
+	${OpenCV_INCLUDE_DIRS}
+	${PCL_INCLUDE_DIRS}
+)
+link_directories(${ZED_LIBRARY_DIR})
+link_directories(${CUDA_LIBRARY_DIRS})
+link_directories(${OpenCV_LIBRARY_DIRS})
+link_directories(${PCL_LIBRARY_DIRS})
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 
 ###########
@@ -81,7 +81,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 # Add ouputs
 add_executable(rex_zed_wrapper src/${PROJECT_NAME}.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${LIBS})
-add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_gencfg)
 
 #############
 ## Install ##

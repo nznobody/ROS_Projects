@@ -337,7 +337,7 @@ void fillCamInfo(Camera* zed,
 	right_cam_info_msg->header.frame_id = right_frame_id;
 }
 
-void callback(zed_ros_wrapper::ZedConfig &config, uint32_t level) {
+void callback(rex_zed_wrapper::ZedConfig &config, uint32_t level) {
 	ROS_INFO("Reconfigure confidence : %d", config.confidence);
 	confidence = config.confidence;
 }
@@ -456,8 +456,8 @@ int main(int argc, char **argv) {
 	Path.setIdentity(4, 4);
 
 	    //ERRCODE display
-	dynamic_reconfigure::Server<zed_ros_wrapper::ZedConfig> server;
-	dynamic_reconfigure::Server<zed_ros_wrapper::ZedConfig>::CallbackType f;
+	dynamic_reconfigure::Server<rex_zed_wrapper::ZedConfig> server;
+	dynamic_reconfigure::Server<rex_zed_wrapper::ZedConfig>::CallbackType f;
 
 	f = boost::bind(&callback, _1, _2);
 	server.setCallback(f);
