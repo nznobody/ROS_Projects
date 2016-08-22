@@ -10,6 +10,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex_zed_wrapper", "rex_zed_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex_gridmapping", "rex_gridmapping\rex_gridmapping.vcxproj", "{E2B897D8-99AB-4F60-A8F3-5B013897F618}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rex_traversibility", "rex_traversibility\rex_traversibility.vcxproj", "{B1CEC3B1-91EC-4533-A16E-02F872CA53F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -32,6 +34,10 @@ Global
 		{E2B897D8-99AB-4F60-A8F3-5B013897F618}.Debug|x86.Build.0 = Debug|Win32
 		{E2B897D8-99AB-4F60-A8F3-5B013897F618}.Release|x86.ActiveCfg = Release|Win32
 		{E2B897D8-99AB-4F60-A8F3-5B013897F618}.Release|x86.Build.0 = Release|Win32
+		{B1CEC3B1-91EC-4533-A16E-02F872CA53F6}.Debug|x86.ActiveCfg = Debug|Win32
+		{B1CEC3B1-91EC-4533-A16E-02F872CA53F6}.Debug|x86.Build.0 = Debug|Win32
+		{B1CEC3B1-91EC-4533-A16E-02F872CA53F6}.Release|x86.ActiveCfg = Release|Win32
+		{B1CEC3B1-91EC-4533-A16E-02F872CA53F6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,11 +28,13 @@ find_package(Eigen3 REQUIRED)
 find_package(PkgConfig REQUIRED)
 
 # Attempt to find catkinized kindr
-find_package(kindr QUIET)
-if(NOT kindr_FOUND)
-  # Attempt to find package-based kindr
-  pkg_check_modules(kindr kindr REQUIRED)
-endif()
+find_package(kindr-old CONFIG 
+  REQUIRED
+  PATHS /usr/local/kindr-old)
+#if(NOT kindr-old_FOUND)
+  ## Attempt to find package-based kindr
+  #pkg_check_modules(kindr-old kindr REQUIRED)
+#endif()
 
 set( LIBS ${LIBS} 
 	${PCL_LIBRARIES}
@@ -44,8 +46,8 @@ include_directories( SYSTEM
 include
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
-  ${Kindr_INCLUDE_DIRS}
-  ${kindr_INCLUDE_DIRS}
+  ${kindr-old_INCLUDE_DIRS}
+  ${Kindr-old_INCLUDE_DIRS}
   ${sm_common_INCLUDE_DIRS}
   ${sm_timing_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}

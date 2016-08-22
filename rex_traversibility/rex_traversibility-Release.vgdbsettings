@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <VisualGDBProjectSettings2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ConfigurationName>Debug</ConfigurationName>
+  <ConfigurationName>Release</ConfigurationName>
   <Project xsi:type="com.visualgdb.project.linux">
     <CustomSourceDirectories>
       <Directories />
@@ -9,19 +9,19 @@
       <LocalDirForRelativePaths />
     </CustomSourceDirectories>
     <BuildHost>
-      <HostName>10.0.10.213</HostName>
+      <HostName>192.168.56.105</HostName>
       <Transport>SSH</Transport>
-      <UserName>ubuntu</UserName>
+      <UserName>linux</UserName>
     </BuildHost>
     <MainSourceTransferCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>10.0.10.213</HostName>
+        <HostName>192.168.56.105</HostName>
         <Transport>SSH</Transport>
-        <UserName>ubuntu</UserName>
+        <UserName>linux</UserName>
       </RemoteHost>
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
-      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_gridmapping</RemoteDirectory>
+      <RemoteDirectory>/home/linux/rex_ws/src/rex_traversibility</RemoteDirectory>
       <FileMasks>
         <string>*.launch</string>
         <string>*.xml</string>
@@ -41,6 +41,7 @@
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
+      <SelectedDirectories />
     </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
     <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>
@@ -51,9 +52,9 @@
   </Project>
   <Build xsi:type="com.visualgdb.build.cmake">
     <RelativeSourceDirectory />
-    <ConfigurationType>DEBUG</ConfigurationType>
-    <BinaryDirectory>../../devel/lib/rex_gridmapping</BinaryDirectory>
-    <MainCMakeTarget>rex_gridmapping</MainCMakeTarget>
+    <ConfigurationType>RELEASE</ConfigurationType>
+    <BinaryDirectory>../../devel/lib/rex_traversibility</BinaryDirectory>
+    <MainCMakeTarget>${PROJECT_NAME}_node</MainCMakeTarget>
     <Toolchain>
       <Name>Default GCC toolchain on 10.0.10.212</Name>
       <UniqueID>com.sysprogs.toolchain.default-gcc</UniqueID>
@@ -88,12 +89,12 @@
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>10.0.10.212</HostName>
+        <HostName>192.168.56.105</HostName>
         <Transport>SSH</Transport>
-        <UserName>ubuntu</UserName>
+        <UserName>linux</UserName>
       </RemoteHost>
       <Command>catkin</Command>
-      <Arguments>build rex_gridmapping --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
+      <Arguments>build rex_traversibility --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
       <WorkingDirectory>$(BuildDir)</WorkingDirectory>
       <Environment>
         <Records>
@@ -107,9 +108,9 @@
     <CMakeCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>10.0.10.212</HostName>
+        <HostName>192.168.56.105</HostName>
         <Transport>SSH</Transport>
-        <UserName>ubuntu</UserName>
+        <UserName>linux</UserName>
       </RemoteHost>
       <Command>:</Command>
       <Arguments />
@@ -128,7 +129,12 @@
     <DisableToolchainFile>false</DisableToolchainFile>
   </Build>
   <Debug xsi:type="com.visualgdb.debug.remote">
-    <AdditionalStartupCommands />
+    <AdditionalStartupCommands>
+      <GDBPreStartupCommands>
+        <string>source ~/rex_ws/devel/setup.bash</string>
+      </GDBPreStartupCommands>
+      <GDBStartupCommands />
+    </AdditionalStartupCommands>
     <AdditionalGDBSettings>
       <FilterSpuriousStoppedNotifications>false</FilterSpuriousStoppedNotifications>
       <ForceSingleThreadedMode>false</ForceSingleThreadedMode>
@@ -161,23 +167,19 @@
       <EnableNonStopMode>false</EnableNonStopMode>
     </AdditionalGDBSettings>
     <LaunchGDBSettings xsi:type="GDBLaunchParametersNewInstance">
-      <GDBEnvironment>
-        <Records>
-          <Record>
-            <VariableName>LANG</VariableName>
-            <Value>en_US.UTF-8</Value>
-          </Record>
-        </Records>
-      </GDBEnvironment>
-      <DebuggedProgram>$(TargetPath)</DebuggedProgram>
+      <DebuggedProgram>$(TargetDir)/rex_traversibility_node</DebuggedProgram>
       <GDBServerPort>2000</GDBServerPort>
       <ProgramArguments />
+      <WorkingDirectory>$(BuildDir)</WorkingDirectory>
+      <ProgramEnvironment>ROS_MASTER_URI=http://localhost:11311</ProgramEnvironment>
     </LaunchGDBSettings>
     <GenerateCtrlBreakInsteadOfCtrlC>false</GenerateCtrlBreakInsteadOfCtrlC>
+    <DeploymentTargetPath />
     <X11WindowMode>Local</X11WindowMode>
     <KeepConsoleAfterExit>false</KeepConsoleAfterExit>
     <RunGDBUnderSudo>false</RunGDBUnderSudo>
     <DeploymentMode>Auto</DeploymentMode>
+    <LdLibraryPath />
     <DeployWhenLaunchedWithoutDebugging>true</DeployWhenLaunchedWithoutDebugging>
   </Debug>
   <CustomBuild>
