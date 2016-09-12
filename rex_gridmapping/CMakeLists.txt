@@ -18,8 +18,8 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   tf_conversions
   eigen_conversions
-  sm_common
-  sm_timing
+  #sm_common
+  #sm_timing
 )
 # e.g. find_package(Boost REQUIRED COMPONENTS system)
 find_package(PCL REQUIRED)
@@ -27,10 +27,13 @@ find_package(Boost REQUIRED COMPONENTS system)
 find_package(Eigen3 REQUIRED)
 find_package(PkgConfig REQUIRED)
 
+pkg_check_modules(SM_COMMON schweizer-messer-common REQUIRED)
+pkg_check_modules(SM_TIMING schweizer-messer-timing REQUIRED)
+
 # Attempt to find catkinized kindr
 find_package(kindr-old CONFIG 
   REQUIRED
-  PATHS /usr/local/kindr-old)
+  PATHS /usr/local/include/kindr-old/share/kindr/cmake)
 #if(NOT kindr-old_FOUND)
   ## Attempt to find package-based kindr
   #pkg_check_modules(kindr-old kindr REQUIRED)
@@ -39,17 +42,16 @@ find_package(kindr-old CONFIG
 set( LIBS ${LIBS} 
 	${PCL_LIBRARIES}
 	${Eigen3_LIBRARIES}
-	${sm_common_LIBRARIES} 
-	${sm_timing_LIBRARIES}
+	${SM_COMMON_LIBRARIES} 
+	${SM_TIMING_LIBRARIES}
 )
 include_directories( SYSTEM
 include
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
   ${kindr-old_INCLUDE_DIRS}
-  ${Kindr-old_INCLUDE_DIRS}
-  ${sm_common_INCLUDE_DIRS}
-  ${sm_timing_INCLUDE_DIRS}
+  ${SM_COMMON_INCLUDE_DIRS}
+  ${SM_TIMING_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
   ${Eigen3_INCLUDE_DIRS}
 )
@@ -74,7 +76,7 @@ catkin_package(
 	  eigen_conversions
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Ofast -march=armv8-a -mrestrict-it -mfpu=neon-fp-armv8")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Ofast")
 
 ###########
 ## Build ##

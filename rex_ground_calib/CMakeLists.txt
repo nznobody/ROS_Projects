@@ -38,7 +38,7 @@ catkin_package(
  DEPENDS pcl
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Ofast -march=armv8-a -mrestrict-it -mfpu=neon-fp-armv8")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Ofast")
 
 ###########
 ## Build ##
