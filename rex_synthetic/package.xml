@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rex_synthetic</name>
+  <version>0.0.0</version>
+  <description>rex_synthetic project created at 9/6/2016 4:40:10 PM</description>
+
+  <maintainer email="manu.lange@rexbionics.com">Manu Lange</maintainer>
+
+  <license>GNU</license>
+
+  <url type="website">https://github.com/nznobody/</url>
+
+  <!-- The *_depend tags are used to specify dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>grid_map_ros</depend>
+  <depend>grid_map_cv</depend>
+  <depend>grid_map_loader</depend>
+  <depend>grid_map_msgs</depend>
+  <depend>grid_map_visualization</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>cv_bridge</depend>
+
+</package>
