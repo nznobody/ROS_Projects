@@ -19,6 +19,11 @@
 
 #include <ros/ros.h>
 #include <std_srvs/Empty.h>
+#include <visualization_msgs/Marker.h>
+#include <geometry_msgs/PoseStamped.h>
+#include <traversability_msgs/CheckFootprintPath.h>
+#include <traversability_msgs/FootprintPath.h>
+#include <traversability_msgs/TraversabilityResult.h>
 
 class	RexInterface
 {
@@ -40,11 +45,23 @@ public:
    */
 	bool readParamters();
 	
+	/*!
+   * Callback for a movement goal message. Well check if footstep is possible at goal.
+   * @return true if successful.
+   */
+	void stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	message );
+	
 private:
 	ros::NodeHandle& nodeHandle_;
+	ros::Publisher markerPublisher_;
+	ros::Subscriber	stepQueryPoseSubscriber_;
 	ros::ServiceServer stepForwardService_;
+	ros::ServiceClient footprintCheckerSubscriber_;
 	
 	//parameters
-	double	stepForwardDistance_;
+	std::string footprintServiceName_;
+	std::string footprintFrame_;
+	double		stepForwardDistance_;
+	double		footprintRadius_;
 	
 };
