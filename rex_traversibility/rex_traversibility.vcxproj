@@ -57,10 +57,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="config\default.yaml" />
+    <None Include="config\filter_parameter.yaml" />
+    <None Include="config\robot.yaml" />
+    <None Include="config\robot_footprint.yaml" />
+    <None Include="config\rosconsole.conf" />
     <None Include="config\visualization\traversability.yaml" />
     <None Include="launch\custom_rosconsole.conf" />
     <None Include="launch\default.launch" />
-    <None Include="launch\traversability_estimation.launch" />
+    <None Include="launch\traversability_estimation.launch">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="launch\visualization.launch" />
     <None Include="rex_traversibility-Debug.vgdbsettings" />
     <None Include="rex_traversibility-Release.vgdbsettings" />

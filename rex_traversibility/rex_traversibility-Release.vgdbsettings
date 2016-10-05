@@ -9,19 +9,19 @@
       <LocalDirForRelativePaths />
     </CustomSourceDirectories>
     <BuildHost>
-      <HostName>192.168.56.105</HostName>
+      <HostName>10.0.10.213</HostName>
       <Transport>SSH</Transport>
-      <UserName>linux</UserName>
+      <UserName>ubuntu</UserName>
     </BuildHost>
     <MainSourceTransferCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>192.168.56.105</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
-        <UserName>linux</UserName>
+        <UserName>ubuntu</UserName>
       </RemoteHost>
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
-      <RemoteDirectory>/home/linux/rex_ws/src/rex_traversibility</RemoteDirectory>
+      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_traversibility</RemoteDirectory>
       <FileMasks>
         <string>*.launch</string>
         <string>*.xml</string>
@@ -38,10 +38,11 @@
         <string>*.cmake</string>
         <string>CMakeLists.txt</string>
         <string>*.cmake</string>
+        <string>*.conf</string>
+        <string>*.yaml</string>
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
-      <SelectedDirectories />
     </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
     <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>

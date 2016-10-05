@@ -9,16 +9,16 @@
       <LocalDirForRelativePaths />
     </CustomSourceDirectories>
     <BuildHost>
-      <HostName>192.168.56.105</HostName>
+      <HostName>10.0.10.213</HostName>
       <Transport>SSH</Transport>
-      <UserName>linux</UserName>
+      <UserName>ubuntu</UserName>
     </BuildHost>
     <MainSourceTransferCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>192.168.56.105</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
-        <UserName>linux</UserName>
+        <UserName>ubuntu</UserName>
       </RemoteHost>
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
       <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_gridmapping</RemoteDirectory>

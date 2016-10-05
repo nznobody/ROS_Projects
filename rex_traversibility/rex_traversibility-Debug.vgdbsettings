@@ -9,19 +9,19 @@
       <LocalDirForRelativePaths />
     </CustomSourceDirectories>
     <BuildHost>
-      <HostName>192.168.56.105</HostName>
+      <HostName>10.0.10.213</HostName>
       <Transport>SSH</Transport>
-      <UserName>linux</UserName>
+      <UserName>ubuntu</UserName>
     </BuildHost>
     <MainSourceTransferCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>192.168.56.105</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
-        <UserName>linux</UserName>
+        <UserName>ubuntu</UserName>
       </RemoteHost>
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
-      <RemoteDirectory>/home/linux/rex_ws/src/rex_traversibility</RemoteDirectory>
+      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_traversibility</RemoteDirectory>
       <FileMasks>
         <string>*.launch</string>
         <string>*.xml</string>
@@ -43,7 +43,6 @@
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
-      <SelectedDirectories />
     </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
     <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>
@@ -54,9 +53,9 @@
   </Project>
   <Build xsi:type="com.visualgdb.build.cmake">
     <RelativeSourceDirectory />
-    <ConfigurationType>RELEASE</ConfigurationType>
+    <ConfigurationType>DEBUG</ConfigurationType>
     <BinaryDirectory>../../devel/lib/rex_traversibility</BinaryDirectory>
-    <MainCMakeTarget>${PROJECT_NAME}_node</MainCMakeTarget>
+    <MainCMakeTarget>rex_traversibility_node</MainCMakeTarget>
     <Toolchain>
       <Name>Default GCC toolchain on 10.0.10.212</Name>
       <UniqueID>com.sysprogs.toolchain.default-gcc</UniqueID>
@@ -91,9 +90,9 @@
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>192.168.56.105</HostName>
+        <HostName>130.123.251.188</HostName>
         <Transport>SSH</Transport>
-        <UserName>linux</UserName>
+        <UserName>ubuntu</UserName>
       </RemoteHost>
       <Command>catkin</Command>
       <Arguments>build rex_traversibility --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
@@ -110,9 +109,9 @@
     <CMakeCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>192.168.56.105</HostName>
+        <HostName>130.123.251.188</HostName>
         <Transport>SSH</Transport>
-        <UserName>linux</UserName>
+        <UserName>ubuntu</UserName>
       </RemoteHost>
       <Command>:</Command>
       <Arguments />
@@ -166,12 +165,11 @@
       <EnableAsyncExecutionMode>false</EnableAsyncExecutionMode>
       <EnableNonStopMode>false</EnableNonStopMode>
     </AdditionalGDBSettings>
-    <LaunchGDBSettings xsi:type="GDBLaunchParametersAttach">
+    <LaunchGDBSettings xsi:type="GDBLaunchParametersNewInstance">
       <DebuggedProgram>$(TargetPath)</DebuggedProgram>
       <GDBServerPort>2000</GDBServerPort>
-      <AttachMode>NoAutoAttach</AttachMode>
-      <AutoAttachPID>0</AutoAttachPID>
-      <AutoAttachExecutable>$(TargetPath)</AutoAttachExecutable>
+      <ProgramArguments />
+      <WorkingDirectory>$(BuildDir)</WorkingDirectory>
     </LaunchGDBSettings>
     <GenerateCtrlBreakInsteadOfCtrlC>false</GenerateCtrlBreakInsteadOfCtrlC>
     <DeploymentTargetPath />

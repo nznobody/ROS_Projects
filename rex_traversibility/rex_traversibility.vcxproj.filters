@@ -43,6 +43,18 @@
     <None Include="config\visualization\traversability.yaml">
       <Filter>cfg</Filter>
     </None>
+    <None Include="config\filter_parameter.yaml">
+      <Filter>cfg</Filter>
+    </None>
+    <None Include="config\robot.yaml">
+      <Filter>cfg</Filter>
+    </None>
+    <None Include="config\robot_footprint.yaml">
+      <Filter>cfg</Filter>
+    </None>
+    <None Include="config\rosconsole.conf">
+      <Filter>cfg</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\traversability_estimation_node.cpp">
