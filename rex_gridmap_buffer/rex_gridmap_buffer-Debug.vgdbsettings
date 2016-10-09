@@ -21,7 +21,7 @@
         <UserName>ubuntu</UserName>
       </RemoteHost>
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
-      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_traversibility</RemoteDirectory>
+      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_gridmap_buffer</RemoteDirectory>
       <FileMasks>
         <string>*.launch</string>
         <string>*.xml</string>
@@ -38,11 +38,10 @@
         <string>*.cmake</string>
         <string>CMakeLists.txt</string>
         <string>*.cmake</string>
-        <string>*.conf</string>
-        <string>*.yaml</string>
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
+      <SelectedDirectories />
     </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
     <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>
@@ -54,8 +53,8 @@
   <Build xsi:type="com.visualgdb.build.cmake">
     <RelativeSourceDirectory />
     <ConfigurationType>DEBUG</ConfigurationType>
-    <BinaryDirectory>../../devel/lib/rex_traversibility</BinaryDirectory>
-    <MainCMakeTarget>rex_traversibility_node</MainCMakeTarget>
+    <BinaryDirectory>../../devel/lib/rex_gridmap_buffer</BinaryDirectory>
+    <MainCMakeTarget>rex_gridmap_buffer</MainCMakeTarget>
     <Toolchain>
       <Name>Default GCC toolchain on 10.0.10.212</Name>
       <UniqueID>com.sysprogs.toolchain.default-gcc</UniqueID>
@@ -90,12 +89,12 @@
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>130.123.251.188</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
       <Command>catkin</Command>
-      <Arguments>build rex_traversibility --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
+      <Arguments>build rex_gridmap_buffer --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
       <WorkingDirectory>$(BuildDir)</WorkingDirectory>
       <Environment>
         <Records>
@@ -109,7 +108,7 @@
     <CMakeCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>130.123.251.188</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
@@ -130,10 +129,7 @@
     <DisableToolchainFile>false</DisableToolchainFile>
   </Build>
   <Debug xsi:type="com.visualgdb.debug.remote">
-    <AdditionalStartupCommands>
-      <GDBPreStartupCommands />
-      <GDBStartupCommands />
-    </AdditionalStartupCommands>
+    <AdditionalStartupCommands />
     <AdditionalGDBSettings>
       <FilterSpuriousStoppedNotifications>false</FilterSpuriousStoppedNotifications>
       <ForceSingleThreadedMode>false</ForceSingleThreadedMode>
@@ -170,6 +166,7 @@
       <GDBServerPort>2000</GDBServerPort>
       <ProgramArguments />
       <WorkingDirectory>$(BuildDir)</WorkingDirectory>
+      <ProgramEnvironment>ROS_MASTER_URI=http://localhost:11311</ProgramEnvironment>
     </LaunchGDBSettings>
     <GenerateCtrlBreakInsteadOfCtrlC>false</GenerateCtrlBreakInsteadOfCtrlC>
     <DeploymentTargetPath />
@@ -206,14 +203,12 @@
     <ExtraSettings>
       <HideErrorsInSystemHeaders>true</HideErrorsInSystemHeaders>
       <DiscoverySettings>
-        <Mode>Enabled</Mode>
+        <Mode>Disabled</Mode>
         <SearchInProjectDir>true</SearchInProjectDir>
         <SearchInSourceDirs>true</SearchInSourceDirs>
         <SearchInIncludeSubdirs>true</SearchInIncludeSubdirs>
         <IgnoredDirs />
-        <IgnoredHeaders>
-          <string>gnu\stubs-soft.h</string>
-        </IgnoredHeaders>
+        <IgnoredHeaders />
       </DiscoverySettings>
     </ExtraSettings>
   </CodeSense>

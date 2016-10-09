@@ -21,7 +21,7 @@
         <UserName>ubuntu</UserName>
       </RemoteHost>
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
-      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_traversibility</RemoteDirectory>
+      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_gridmap_buffer</RemoteDirectory>
       <FileMasks>
         <string>*.launch</string>
         <string>*.xml</string>
@@ -38,8 +38,6 @@
         <string>*.cmake</string>
         <string>CMakeLists.txt</string>
         <string>*.cmake</string>
-        <string>*.conf</string>
-        <string>*.yaml</string>
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
@@ -54,8 +52,8 @@
   <Build xsi:type="com.visualgdb.build.cmake">
     <RelativeSourceDirectory />
     <ConfigurationType>RELEASE</ConfigurationType>
-    <BinaryDirectory>../../devel/lib/rex_traversibility</BinaryDirectory>
-    <MainCMakeTarget>${PROJECT_NAME}_node</MainCMakeTarget>
+    <BinaryDirectory>../../devel/lib/rex_gridmap_buffer</BinaryDirectory>
+    <MainCMakeTarget>rex_gridmap_buffer</MainCMakeTarget>
     <Toolchain>
       <Name>Default GCC toolchain on 10.0.10.212</Name>
       <UniqueID>com.sysprogs.toolchain.default-gcc</UniqueID>
@@ -90,12 +88,12 @@
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>192.168.56.105</HostName>
+        <HostName>10.0.10.212</HostName>
         <Transport>SSH</Transport>
-        <UserName>linux</UserName>
+        <UserName>ubuntu</UserName>
       </RemoteHost>
       <Command>catkin</Command>
-      <Arguments>build rex_traversibility --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
+      <Arguments>build rex_gridmap_buffer --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
       <WorkingDirectory>$(BuildDir)</WorkingDirectory>
       <Environment>
         <Records>
@@ -109,9 +107,9 @@
     <CMakeCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>192.168.56.105</HostName>
+        <HostName>10.0.10.212</HostName>
         <Transport>SSH</Transport>
-        <UserName>linux</UserName>
+        <UserName>ubuntu</UserName>
       </RemoteHost>
       <Command>:</Command>
       <Arguments />
@@ -130,12 +128,7 @@
     <DisableToolchainFile>false</DisableToolchainFile>
   </Build>
   <Debug xsi:type="com.visualgdb.debug.remote">
-    <AdditionalStartupCommands>
-      <GDBPreStartupCommands>
-        <string>source ~/rex_ws/devel/setup.bash</string>
-      </GDBPreStartupCommands>
-      <GDBStartupCommands />
-    </AdditionalStartupCommands>
+    <AdditionalStartupCommands />
     <AdditionalGDBSettings>
       <FilterSpuriousStoppedNotifications>false</FilterSpuriousStoppedNotifications>
       <ForceSingleThreadedMode>false</ForceSingleThreadedMode>
@@ -168,19 +161,23 @@
       <EnableNonStopMode>false</EnableNonStopMode>
     </AdditionalGDBSettings>
     <LaunchGDBSettings xsi:type="GDBLaunchParametersNewInstance">
-      <DebuggedProgram>$(TargetDir)/rex_traversibility_node</DebuggedProgram>
+      <GDBEnvironment>
+        <Records>
+          <Record>
+            <VariableName>LANG</VariableName>
+            <Value>en_US.UTF-8</Value>
+          </Record>
+        </Records>
+      </GDBEnvironment>
+      <DebuggedProgram>$(TargetPath)</DebuggedProgram>
       <GDBServerPort>2000</GDBServerPort>
       <ProgramArguments />
-      <WorkingDirectory>$(BuildDir)</WorkingDirectory>
-      <ProgramEnvironment>ROS_MASTER_URI=http://localhost:11311</ProgramEnvironment>
     </LaunchGDBSettings>
     <GenerateCtrlBreakInsteadOfCtrlC>false</GenerateCtrlBreakInsteadOfCtrlC>
-    <DeploymentTargetPath />
     <X11WindowMode>Local</X11WindowMode>
     <KeepConsoleAfterExit>false</KeepConsoleAfterExit>
     <RunGDBUnderSudo>false</RunGDBUnderSudo>
     <DeploymentMode>Auto</DeploymentMode>
-    <LdLibraryPath />
     <DeployWhenLaunchedWithoutDebugging>true</DeployWhenLaunchedWithoutDebugging>
   </Debug>
   <CustomBuild>

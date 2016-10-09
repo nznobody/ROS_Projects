@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rex_gridmap_buffer</name>
+  <version>0.0.0</version>
+  <description>rex_gridmap_buffer project created at 10/6/2016 4:06:43 PM</description>
+
+  <maintainer email="manu.lange@rexbionics.com">Manu Lange</maintainer>
+
+  <license>GNU</license>
+
+  <url type="website">https://github.com/nznobody/</url>
+
+  <!-- The *_depend tags are used to specify dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>grid_map_core</depend>
+  <depend>grid_map_ros</depend>
+  <depend>grid_map_msgs</depend>
+
+</package>

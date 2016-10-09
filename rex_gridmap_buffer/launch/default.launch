@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="rex_gridmap_buffer" type="rex_gridmap_buffer" name="rex_gridmap_buffer" output="screen">
+	</node>
+</launch>
