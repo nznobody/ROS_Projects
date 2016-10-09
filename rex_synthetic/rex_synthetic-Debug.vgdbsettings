@@ -21,8 +21,11 @@
         <UserName>ubuntu</UserName>
       </RemoteHost>
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
-      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_odom2pose</RemoteDirectory>
+      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_synthetic</RemoteDirectory>
       <FileMasks>
+        <string>*.rviz</string>
+        <string>*.png</string>
+        <string>*.py</string>
         <string>*.launch</string>
         <string>*.xml</string>
         <string>*.cfg</string>
@@ -41,6 +44,7 @@
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
+      <SelectedDirectories />
     </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
     <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>
@@ -52,8 +56,8 @@
   <Build xsi:type="com.visualgdb.build.cmake">
     <RelativeSourceDirectory />
     <ConfigurationType>DEBUG</ConfigurationType>
-    <BinaryDirectory>../../devel/lib/rex_odom2pose</BinaryDirectory>
-    <MainCMakeTarget>rex_odom2pose</MainCMakeTarget>
+    <BinaryDirectory>../../devel/lib/rex_synthetic</BinaryDirectory>
+    <MainCMakeTarget>rex_synthetic</MainCMakeTarget>
     <Toolchain>
       <Name>Default GCC toolchain on 10.0.10.212</Name>
       <UniqueID>com.sysprogs.toolchain.default-gcc</UniqueID>
@@ -88,12 +92,12 @@
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>10.0.10.212</HostName>
+        <HostName>192.168.56.111</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
       <Command>catkin</Command>
-      <Arguments>build rex_odom2pose --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
+      <Arguments>build rex_synthetic --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
       <WorkingDirectory>$(BuildDir)</WorkingDirectory>
       <Environment>
         <Records>
@@ -107,7 +111,7 @@
     <CMakeCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>10.0.10.212</HostName>
+        <HostName>192.168.56.111</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
@@ -206,12 +210,14 @@
     <ExtraSettings>
       <HideErrorsInSystemHeaders>true</HideErrorsInSystemHeaders>
       <DiscoverySettings>
-        <Mode>Disabled</Mode>
+        <Mode>Enabled</Mode>
         <SearchInProjectDir>true</SearchInProjectDir>
         <SearchInSourceDirs>true</SearchInSourceDirs>
         <SearchInIncludeSubdirs>true</SearchInIncludeSubdirs>
         <IgnoredDirs />
-        <IgnoredHeaders />
+        <IgnoredHeaders>
+          <string>gnu\stubs-soft.h</string>
+        </IgnoredHeaders>
       </DiscoverySettings>
     </ExtraSettings>
   </CodeSense>

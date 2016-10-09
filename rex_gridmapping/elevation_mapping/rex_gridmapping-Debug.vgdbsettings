@@ -21,8 +21,9 @@
         <UserName>ubuntu</UserName>
       </RemoteHost>
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
-      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_odom2pose</RemoteDirectory>
+      <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_gridmapping</RemoteDirectory>
       <FileMasks>
+        <string>*.yaml</string>
         <string>*.launch</string>
         <string>*.xml</string>
         <string>*.cfg</string>
@@ -38,6 +39,7 @@
         <string>*.cmake</string>
         <string>CMakeLists.txt</string>
         <string>*.cmake</string>
+        <string>*.conf</string>
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
@@ -52,8 +54,8 @@
   <Build xsi:type="com.visualgdb.build.cmake">
     <RelativeSourceDirectory />
     <ConfigurationType>DEBUG</ConfigurationType>
-    <BinaryDirectory>../../devel/lib/rex_odom2pose</BinaryDirectory>
-    <MainCMakeTarget>rex_odom2pose</MainCMakeTarget>
+    <BinaryDirectory>../../devel/lib/rex_gridmapping</BinaryDirectory>
+    <MainCMakeTarget>rex_gridmapping</MainCMakeTarget>
     <Toolchain>
       <Name>Default GCC toolchain on 10.0.10.212</Name>
       <UniqueID>com.sysprogs.toolchain.default-gcc</UniqueID>
@@ -93,7 +95,7 @@
         <UserName>ubuntu</UserName>
       </RemoteHost>
       <Command>catkin</Command>
-      <Arguments>build rex_odom2pose --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
+      <Arguments>build rex_gridmapping --no-status --no-notify --cmake-args -DCMAKE_BUILD_TYPE=$(ConfigurationName)</Arguments>
       <WorkingDirectory>$(BuildDir)</WorkingDirectory>
       <Environment>
         <Records>

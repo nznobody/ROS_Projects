@@ -2,37 +2,44 @@
 #Note: VisualGDB will automatically update this file when you add new sources to the project.
 
 cmake_minimum_required(VERSION 2.7)
-project(rex_odom2pose)
+project(rex_synthetic)
 
 ## System dependencies are found with CMake's conventions
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  grid_map_ros
+  grid_map_cv
+  grid_map_msgs
   geometry_msgs
-  nav_msgs
+  sensor_msgs
+  cv_bridge
 )
 # e.g. find_package(Boost REQUIRED COMPONENTS system)
 
-set( LIBS ${LIBS} 
+set( LIBS ${LIBS}
+  ${catkin_LIBRARIES}
 )
-
 include_directories(
+  ${catkin_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIR}
 )
 
 ## Required for ros + catkin_make
 catkin_package(
-## INCLUDE_DIRS: uncomment this if you package contains header files
+ INCLUDE_DIRS include
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
+ CATKIN_DEPENDS
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Ofast")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 ###########
 ## Build ##
 ###########
 # Add ouputs
-add_executable(rex_odom2pose src/${PROJECT_NAME}.cpp)
+add_executable(rex_synthetic src/main.cpp src/${PROJECT_NAME}.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${LIBS})
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 

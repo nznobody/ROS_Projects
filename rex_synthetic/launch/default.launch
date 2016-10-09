@@ -1,0 +1,9 @@
+<launch>
+  <rosparam command="load" file="$(find rex_synthetic)/config/image_to_gridmap_demo.yaml" />
+
+  <node pkg="rex_synthetic" type="image_publisher.py" name="image_publisher" output="screen" />
+	<node pkg="rex_synthetic" type="rex_synthetic" name="rex_synthetic" output="screen" />
+  <node pkg="grid_map_visualization" type="grid_map_visualization" name="grid_map_visualization" output="screen" />
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rex_synthetic)/rviz/rex_synthetic.rviz" />
+</launch>

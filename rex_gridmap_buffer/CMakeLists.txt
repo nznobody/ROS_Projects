@@ -2,37 +2,50 @@
 #Note: VisualGDB will automatically update this file when you add new sources to the project.
 
 cmake_minimum_required(VERSION 2.7)
-project(rex_odom2pose)
+project(rex_gridmap_buffer)
 
 ## System dependencies are found with CMake's conventions
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  geometry_msgs
-  nav_msgs
+  std_msgs
+  grid_map_core
+  grid_map_ros
+  grid_map_msgs
 )
 # e.g. find_package(Boost REQUIRED COMPONENTS system)
-
-set( LIBS ${LIBS} 
-)
-
-include_directories(
-)
+find_package(PCL REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 ## Required for ros + catkin_make
 catkin_package(
 ## INCLUDE_DIRS: uncomment this if you package contains header files
 ## LIBRARIES: libraries you create in this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
+CATKIN_DEPENDS
+	std_msgs
+	grid_map_core
+	grid_map_ros
+	grid_map_msgs
 ## DEPENDS: system dependencies of this project that dependent projects also need
+ DEPENDS pcl
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Ofast")
+set( LIBS ${LIBS} 
+${PCL_LIBRARIES}
+${Eigen3_LIBRARIES}
+)
+include_directories(
+${catkin_INCLUDE_DIRS}
+${PCL_INCLUDE_DIRS}
+${Eigen3_INCLUDE_DIRS}
+)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 
 ###########
 ## Build ##
 ###########
 # Add ouputs
-add_executable(rex_odom2pose src/${PROJECT_NAME}.cpp)
+add_executable(rex_gridmap_buffer src/${PROJECT_NAME}.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${LIBS})
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
 

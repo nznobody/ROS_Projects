@@ -1,4 +1,0 @@
-<launch>
-	<node pkg="rex_traversibility" type="rex_traversibility" name="rex_traversibility" output="screen">
-	</node>
-</launch>
