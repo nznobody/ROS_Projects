@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="rex_interface" type="rex_interface" name="rex_interface" output="screen">
+	</node>
+</launch>
