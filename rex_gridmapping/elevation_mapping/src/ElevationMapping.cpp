@@ -399,6 +399,11 @@ bool ElevationMapping::getSubmap(grid_map_msgs::GetGridMap::Request& request, gr
   bool isSuccess;
   Index index;
   GridMap subMap = map_.getFusedGridMap().getSubmap(requestedSubmapPosition, requestedSubmapLength, index, isSuccess);
+	
+	//Lacking the variance layer, copy it from raw map for now
+	GridMap rawMap = map_.getRawGridMap();
+	subMap.add("variance", rawMap.get("variance"));
+	
   scopedLock.unlock();
 
   if (request.layers.empty()) {

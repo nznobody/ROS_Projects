@@ -23,6 +23,7 @@
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
       <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_gridmapping</RemoteDirectory>
       <FileMasks>
+        <string>*.yaml</string>
         <string>*.launch</string>
         <string>*.xml</string>
         <string>*.cfg</string>
@@ -38,6 +39,7 @@
         <string>*.cmake</string>
         <string>CMakeLists.txt</string>
         <string>*.cmake</string>
+        <string>*.conf</string>
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>

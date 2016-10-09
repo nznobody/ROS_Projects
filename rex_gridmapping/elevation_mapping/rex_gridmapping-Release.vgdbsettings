@@ -39,6 +39,7 @@
         <string>*.cmake</string>
         <string>CMakeLists.txt</string>
         <string>*.cmake</string>
+        <string>*.conf</string>
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
@@ -213,7 +214,9 @@
         <SearchInSourceDirs>true</SearchInSourceDirs>
         <SearchInIncludeSubdirs>true</SearchInIncludeSubdirs>
         <IgnoredDirs />
-        <IgnoredHeaders />
+        <IgnoredHeaders>
+          <string>gnu\stubs-soft.h</string>
+        </IgnoredHeaders>
       </DiscoverySettings>
     </ExtraSettings>
   </CodeSense>

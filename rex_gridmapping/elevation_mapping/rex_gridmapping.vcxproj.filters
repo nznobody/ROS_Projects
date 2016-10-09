@@ -17,9 +17,6 @@
     <Filter Include="cfg">
       <UniqueIdentifier>{3060798e-1425-493a-874f-5d55fb5ae1f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\sensor_processors">
-      <UniqueIdentifier>{bce3ef08-f909-4aae-90d8-a2c4b381c17e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\sensor_processors">
       <UniqueIdentifier>{ba2dceea-d223-4ee9-a4a8-7017057921c9}</UniqueIdentifier>
     </Filter>
@@ -34,6 +31,9 @@
     </Filter>
     <Filter Include="cfg\visualization">
       <UniqueIdentifier>{b2e516f5-1bba-41bc-9678-b7a10b46cd6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\sensor_processors">
+      <UniqueIdentifier>{0b54e041-2437-464c-a75f-34f7a025ee61}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -97,44 +97,15 @@
     <None Include="config\robots\default.yaml">
       <Filter>cfg\robots</Filter>
     </None>
+    <None Include="config\custom_rosconsole.conf">
+      <Filter>cfg</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="package.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\rex_gridmapping\ElevationMap.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rex_gridmapping\ElevationMapFunctors.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rex_gridmapping\ElevationMapping.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rex_gridmapping\RobotMotionMapUpdater.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rex_gridmapping\sensor_processors\KinectSensorProcessor.hpp">
-      <Filter>include\sensor_processors</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rex_gridmapping\sensor_processors\LaserSensorProcessor.hpp">
-      <Filter>include\sensor_processors</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rex_gridmapping\sensor_processors\PerfectSensorProcessor.hpp">
-      <Filter>include\sensor_processors</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rex_gridmapping\sensor_processors\SensorProcessorBase.hpp">
-      <Filter>include\sensor_processors</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rex_gridmapping\sensor_processors\StereoSensorProcessor.hpp">
-      <Filter>include\sensor_processors</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rex_gridmapping\sensor_processors\Stereo2SensorProcessor.hpp">
-      <Filter>include\sensor_processors</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\elevation_mapping_node.cpp">
@@ -149,6 +120,9 @@
     <ClCompile Include="src\RobotMotionMapUpdater.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\sensor_processors\KinectSensorProcessor.cpp">
+      <Filter>src\sensor_processors</Filter>
+    </ClCompile>
     <ClCompile Include="src\sensor_processors\LaserSensorProcessor.cpp">
       <Filter>src\sensor_processors</Filter>
     </ClCompile>
@@ -158,14 +132,40 @@
     <ClCompile Include="src\sensor_processors\SensorProcessorBase.cpp">
       <Filter>src\sensor_processors</Filter>
     </ClCompile>
-    <ClCompile Include="src\sensor_processors\Stereo2SensorProcessor.cpp">
-      <Filter>src\sensor_processors</Filter>
-    </ClCompile>
     <ClCompile Include="src\sensor_processors\StereoSensorProcessor.cpp">
       <Filter>src\sensor_processors</Filter>
     </ClCompile>
-    <ClCompile Include="src\sensor_processors\KinectSensorProcessor.cpp">
-      <Filter>src\sensor_processors</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\elevation_mapping\ElevationMap.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\ElevationMapFunctors.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\ElevationMapping.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\RobotMotionMapUpdater.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\WeightedEmpiricalCumulativeDistributionFunction.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\sensor_processors\PerfectSensorProcessor.hpp">
+      <Filter>include\sensor_processors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\sensor_processors\SensorProcessorBase.hpp">
+      <Filter>include\sensor_processors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\sensor_processors\StereoSensorProcessor.hpp">
+      <Filter>include\sensor_processors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\sensor_processors\KinectSensorProcessor.hpp">
+      <Filter>include\sensor_processors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\sensor_processors\LaserSensorProcessor.hpp">
+      <Filter>include\sensor_processors</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
