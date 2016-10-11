@@ -9,29 +9,20 @@
       <LocalDirForRelativePaths />
     </CustomSourceDirectories>
     <BuildHost>
-<<<<<<< Updated upstream:rex_synthetic/rex_synthetic-Release.vgdbsettings
-      <HostName>192.168.56.111</HostName>
-=======
       <HostName>10.0.10.213</HostName>
->>>>>>> Stashed changes:rex_interface/rex_interface-Release.vgdbsettings
       <Transport>SSH</Transport>
       <UserName>ubuntu</UserName>
     </BuildHost>
     <MainSourceTransferCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-<<<<<<< Updated upstream:rex_synthetic/rex_synthetic-Release.vgdbsettings
-        <HostName>192.168.56.111</HostName>
-=======
         <HostName>10.0.10.213</HostName>
->>>>>>> Stashed changes:rex_interface/rex_interface-Release.vgdbsettings
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
       <LocalDirectory>$(ProjectDir)</LocalDirectory>
       <RemoteDirectory>/home/ubuntu/rex_ws/src/rex_synthetic</RemoteDirectory>
       <FileMasks>
-        <string>*.yaml</string>
         <string>*.rviz</string>
         <string>*.png</string>
         <string>*.py</string>
@@ -64,7 +55,7 @@
   </Project>
   <Build xsi:type="com.visualgdb.build.cmake">
     <RelativeSourceDirectory />
-    <ConfigurationType>DEBUG</ConfigurationType>
+    <ConfigurationType>RELEASE</ConfigurationType>
     <BinaryDirectory>Release</BinaryDirectory>
     <MainCMakeTarget>rex_synthetic</MainCMakeTarget>
     <Toolchain>
@@ -101,7 +92,7 @@
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>192.168.56.111</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
@@ -120,7 +111,7 @@
     <CMakeCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>192.168.56.111</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
