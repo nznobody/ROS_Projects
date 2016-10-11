@@ -46,7 +46,7 @@
 #include <sensor_msgs/image_encodings.h>
 #include <image_transport/image_transport.h>
 #include <dynamic_reconfigure/server.h>
-#include <zed_wrapper/ZedConfig.h>
+#include <rex_zed_wrapper/ZedConfig.h>
 #include <nav_msgs/Odometry.h>
 
 #include <tf2/LinearMath/Quaternion.h>
@@ -463,7 +463,7 @@ int main(int argc, char **argv) {
 
     f = boost::bind(&callback, _1, _2);
     server.setCallback(f);
-    confidence = 80;
+    confidence = 100;
 
     // Get the parameters of the ZED images
     int width = zed->getImageSize().width;

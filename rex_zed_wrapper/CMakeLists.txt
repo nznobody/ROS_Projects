@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.7)
 
-project(zed_wrapper)
+project(rex_zed_wrapper)
 
 # if CMAKE_BUILD_TYPE is not specified, take 'Release' as default
 IF(NOT CMAKE_BUILD_TYPE)
@@ -21,7 +21,7 @@ find_package(ZED 1.1 REQUIRED)
 exec_program(uname ARGS -p OUTPUT_VARIABLE CMAKE_SYSTEM_NAME2)
 if ( CMAKE_SYSTEM_NAME2 MATCHES "aarch64" ) # Jetson TX1
     SET(OCV_VERSION "2.4")
-    SET(CUDA_VERSION "8.0")
+    SET(CUDA_VERSION "7.0") #Changed to 7 for 32b
     set(CUDA_USE_STATIC_CUDA_RUNTIME OFF)
 elseif(CMAKE_SYSTEM_NAME2 MATCHES "armv7l" ) # Jetson TK1
     SET(OCV_VERSION "2.4")
@@ -89,12 +89,12 @@ add_definitions(-std=c++11)# -m64) #-Wall)
 
 
 add_executable(
-  zed_wrapper_node
+  rex_zed_wrapper_node
   src/zed_wrapper_node.cpp
 )
 
 target_link_libraries(
-        zed_wrapper_node
+        rex_zed_wrapper_node
         ${catkin_LIBRARIES}
         ${ZED_LIBRARIES}
 	${CUDA_LIBRARIES} ${CUDA_nppi_LIBRARY} ${CUDA_npps_LIBRARY}
@@ -102,7 +102,7 @@ target_link_libraries(
         ${PCL_LIBRARIES}
     )
 
-add_dependencies(zed_wrapper_node ${PROJECT_NAME}_gencfg)
+add_dependencies(rex_zed_wrapper_node ${PROJECT_NAME}_gencfg)
 ###############################################################################
 
 #Add all files in subdirectories of the project in

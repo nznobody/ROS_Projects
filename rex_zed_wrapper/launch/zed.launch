@@ -1,16 +1,16 @@
 <launch>
 
-  <include file="$(find zed_wrapper)/launch/zed_tf.launch" />
+  <include file="$(find rex_zed_wrapper)/launch/zed_tf.launch" />
 
   <arg name="svo_file" default=""/>
   
-      <param name="robot_description" textfile="$(find zed_wrapper)/urdf/zed.urdf" />
+      <param name="robot_description" textfile="$(find rex_zed_wrapper)/urdf/zed.urdf" />
 
   <group ns="camera">
 
     <node name="zed_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
-    <node name="zed_wrapper_node" pkg="zed_wrapper" type="zed_wrapper_node" args="$(arg svo_file)" output="screen">
+    <node name="rex_zed_wrapper_node" pkg="rex_zed_wrapper" type="rex_zed_wrapper_node" args="$(arg svo_file)" output="screen">
 
       <param name="resolution"            value="2" />
       <param name="quality"               value="1" />
