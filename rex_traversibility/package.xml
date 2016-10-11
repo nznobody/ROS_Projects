@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>traversability_estimation</name>
+  <name>rex_traversibility</name>
   <version>0.1.0</version>
   <description>ROS package for estimating traversability from elevation maps.</description>
   <maintainer email="pfankhauser@ethz.ch">Peter Fankhauser</maintainer>
