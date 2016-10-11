@@ -7,6 +7,8 @@ project(rex_interface)
 ## System dependencies are found with CMake's conventions
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  std_msgs
+  message_generation
 )
 # e.g. find_package(Boost REQUIRED COMPONENTS system)
 find_package(PCL REQUIRED)
@@ -19,6 +21,16 @@ ${Eigen3_LIBRARIES}
 include_directories(
 ${PCL_INCLUDE_DIRS}
 ${Eigen3_INCLUDE_DIRS}
+)
+
+add_service_files(
+  FILES
+  stepQuery.srv
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
 )
 
 ## Required for ros + catkin_make
