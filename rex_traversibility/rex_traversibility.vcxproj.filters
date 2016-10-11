@@ -52,6 +52,21 @@
     <None Include="config\rosconsole.conf">
       <Filter>cfg</Filter>
     </None>
+    <None Include="launch\buffer.launch">
+      <Filter>launch</Filter>
+    </None>
+    <None Include="launch\pcd.launch">
+      <Filter>launch</Filter>
+    </None>
+    <None Include="config\filter_parameter_pcd.yaml">
+      <Filter>cfg</Filter>
+    </None>
+    <None Include="config\robot_pcd.yaml">
+      <Filter>cfg</Filter>
+    </None>
+    <None Include="config\robot_buffer.yaml">
+      <Filter>cfg</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\traversability_estimation_node.cpp">
@@ -71,10 +86,10 @@
     <Xml Include="package.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Users\manu.lange\Desktop\rex_traversibility\include\rex_traversibility\TraversabilityEstimation.hpp">
+    <ClInclude Include="include\traversability_estimation\TraversabilityEstimation.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Users\manu.lange\Desktop\rex_traversibility\include\rex_traversibility\TraversabilityMap.hpp">
+    <ClInclude Include="include\traversability_estimation\TraversabilityMap.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

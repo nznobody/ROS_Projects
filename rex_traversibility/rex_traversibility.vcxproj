@@ -58,11 +58,16 @@
   <ItemGroup>
     <None Include="config\default.yaml" />
     <None Include="config\filter_parameter.yaml" />
+    <None Include="config\filter_parameter_pcd.yaml" />
     <None Include="config\robot.yaml" />
+    <None Include="config\robot_buffer.yaml" />
     <None Include="config\robot_footprint.yaml" />
+    <None Include="config\robot_pcd.yaml" />
     <None Include="config\rosconsole.conf" />
     <None Include="config\visualization\traversability.yaml" />
+    <None Include="launch\buffer.launch" />
     <None Include="launch\custom_rosconsole.conf" />
+    <None Include="launch\pcd.launch" />
     <None Include="launch\traversability_estimation.launch">
       <SubType>Designer</SubType>
     </None>
@@ -82,8 +87,8 @@
     <Xml Include="package.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Users\manu.lange\Desktop\rex_traversibility\include\rex_traversibility\TraversabilityEstimation.hpp" />
-    <ClInclude Include="..\..\..\..\Users\manu.lange\Desktop\rex_traversibility\include\rex_traversibility\TraversabilityMap.hpp" />
+    <ClInclude Include="include\traversability_estimation\TraversabilityEstimation.hpp" />
+    <ClInclude Include="include\traversability_estimation\TraversabilityMap.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

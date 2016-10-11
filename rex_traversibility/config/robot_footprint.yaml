@@ -4,5 +4,5 @@ footprint:
   circular_footprint_radius: 0.541
   circular_footprint_radius_inscribed: 0.30
   circular_footprint_offset: 0.15
-  footprint_frame_id: base
+  footprint_frame_id: map
   traversability_default: 0.3

@@ -135,8 +135,13 @@ void TraversabilityMap::publishTraversabilityMap()
   if (!traversabilityMapPublisher_.getNumSubscribers() < 1) {
     grid_map_msgs::GridMap mapMessage;
     boost::recursive_mutex::scoped_lock scopedLockForTraversabilityMap(traversabilityMapMutex_);
-    grid_map::GridMapRosConverter::toMessage(traversabilityMap_, mapMessage);
-    scopedLockForTraversabilityMap.unlock();
+	  //Testing why rviz plugin crashes!
+	  if (!traversabilityMap_.exists("upper_bound"))
+	  {
+		  traversabilityMap_.add("upper_bound");
+	  }
+	  grid_map::GridMapRosConverter::toMessage(traversabilityMap_, mapMessage);
+    scopedLockForTraversabilityMap.unlock(); 
     mapMessage.info.pose.position.z = zPosition_;
     traversabilityMapPublisher_.publish(mapMessage);
   }
