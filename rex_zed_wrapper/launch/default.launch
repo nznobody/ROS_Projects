@@ -1,4 +1,0 @@
-<launch>
-	<node pkg="rex_zed_wrapper" type="rex_zed_wrapper" name="rex_zed_wrapper" output="screen">
-	</node>
-</launch>
