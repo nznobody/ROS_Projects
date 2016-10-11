@@ -1,6 +1,0 @@
-<launch>
-  <env name="ROSCONSOLE_CONFIG_FILE" value="$(find rex_traversibility)/config/rosconsole.conf"/>
-  <node pkg="rex_traversibility" type="rex_traversibility" name="rex_traversibility" output="screen">
-    <param name="elevation_map/path_to_bag" value="$(find rex_traversibility)/data/map.bag" />
-  </node>
-</launch>
