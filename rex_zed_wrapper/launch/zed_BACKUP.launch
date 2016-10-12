@@ -12,10 +12,10 @@
 
     <node name="rex_zed_wrapper_node" pkg="rex_zed_wrapper" type="rex_zed_wrapper_node" args="$(arg svo_file)" output="screen">
 
-      <param name="resolution"            value="3" />
-      <param name="quality"               value="3" />
+      <param name="resolution"            value="2" />
+      <param name="quality"               value="1" />
       <param name="sensing_mode"          value="1" />
-      <param name="frame_rate"            value="15" />
+      <param name="frame_rate"            value="60" />
       <param name="odometry_DB"           value="" />
       <param name="openni_depth_mode"     value="0" />
 

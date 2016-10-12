@@ -1,6 +1,8 @@
 <launch>
 
-  <include file="$(find rex_zed_wrapper)/launch/zed_tf.launch" />
+  <!--include file="$(find rex_zed_wrapper)/launch/zed_tf.launch" /-->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="zed_tracked_MODEL"
+    args="0 0 0 0 0 0 1 zed_tracked_frame ZED_left_camera" />
 
   <arg name="svo_file" default=""/>
   
