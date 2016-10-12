@@ -1,0 +1,9 @@
+<launch>
+  <env name="ROSCONSOLE_CONFIG_FILE" value="$(find rex_traversibility)/config/rosconsole.conf"/>
+  <node pkg="rex_traversibility" type="rex_traversibility_node" name="rex_traversibility" output="screen">
+    <rosparam command="load" file="$(find rex_traversibility)/config/robot_zed.yaml"/>
+    <rosparam command="load" file="$(find rex_traversibility)/config/robot_footprint.yaml"/>
+    <rosparam command="load" file="$(find rex_traversibility)/config/filter_parameter_zed.yaml"/>
+    <param name="elevation_map/path_to_bag" value="$(find rex_traversibility)/data/map.bag"/>
+  </node>
+</launch>

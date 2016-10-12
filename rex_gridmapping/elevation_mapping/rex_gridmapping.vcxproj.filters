@@ -43,12 +43,6 @@
     <None Include="rex_gridmapping-Release.vgdbsettings">
       <Filter>VisualGDB settings</Filter>
     </None>
-    <None Include="launch\zed.launch">
-      <Filter>launch</Filter>
-    </None>
-    <None Include="launch\visualization.launch">
-      <Filter>launch</Filter>
-    </None>
     <None Include="config\elevation_maps\elev_rex.yaml">
       <Filter>cfg\elevation_maps</Filter>
     </None>
@@ -99,6 +93,27 @@
     </None>
     <None Include="config\custom_rosconsole.conf">
       <Filter>cfg</Filter>
+    </None>
+    <None Include="launch\fake_tf.launch">
+      <Filter>launch</Filter>
+    </None>
+    <None Include="launch\pcd.launch">
+      <Filter>launch</Filter>
+    </None>
+    <None Include="launch\visualization.launch">
+      <Filter>launch</Filter>
+    </None>
+    <None Include="launch\zedPipe.launch">
+      <Filter>launch</Filter>
+    </None>
+    <None Include="config\elevation_maps\map_zed.yaml">
+      <Filter>cfg\elevation_maps</Filter>
+    </None>
+    <None Include="config\elevation_maps\pcd.yaml">
+      <Filter>cfg\elevation_maps</Filter>
+    </None>
+    <None Include="config\robots\none.yaml">
+      <Filter>cfg\robots</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
