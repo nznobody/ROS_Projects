@@ -393,18 +393,22 @@ bool ElevationMapping::getSubmap(grid_map_msgs::GetGridMap::Request& request, gr
     }
   }
 
-  boost::recursive_mutex::scoped_lock scopedLock(map_.getFusedDataMutex());
-  map_.fuseArea(requestedSubmapPosition, requestedSubmapLength, computeSurfaceNormals);
-
-  bool isSuccess;
-  Index index;
-  GridMap subMap = map_.getFusedGridMap().getSubmap(requestedSubmapPosition, requestedSubmapLength, index, isSuccess);
-	
-	//Lacking the variance layer, copy it from raw map for now
-	GridMap rawMap = map_.getRawGridMap();
-	subMap.add("variance", rawMap.get("variance"));
-	
-  scopedLock.unlock();
+//  boost::recursive_mutex::scoped_lock scopedLock(map_.getFusedDataMutex());
+//  map_.fuseArea(requestedSubmapPosition, requestedSubmapLength, computeSurfaceNormals);
+//
+//  bool isSuccess;
+//  Index index;
+//  GridMap subMap = map_.getFusedGridMap().getSubmap(requestedSubmapPosition, requestedSubmapLength, index, isSuccess);
+//	
+//	//Lacking the variance layer, copy it from raw map for now
+//	GridMap rawMap = map_.getRawGridMap();
+//	subMap.add("variance", rawMap.get("variance"));
+//	
+//	//Testing not fusing at all!
+	boost::recursive_mutex::scoped_lock scopedLock(map_.getRawDataMutex());
+	GridMap subMap = map_.getRawGridMap();
+//	
+	scopedLock.unlock();
 
   if (request.layers.empty()) {
     GridMapRosConverter::toMessage(subMap, response.map);
@@ -417,7 +421,7 @@ bool ElevationMapping::getSubmap(grid_map_msgs::GetGridMap::Request& request, gr
   }
 
   ROS_DEBUG("Elevation submap responded with timestamp %f.", map_.getTimeOfLastFusion().toSec());
-  return isSuccess;
+  return true;
 }
 
 bool ElevationMapping::clearMap(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)
