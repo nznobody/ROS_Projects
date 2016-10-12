@@ -405,8 +405,10 @@ bool ElevationMapping::getSubmap(grid_map_msgs::GetGridMap::Request& request, gr
 //	subMap.add("variance", rawMap.get("variance"));
 //	
 //	//Testing not fusing at all!
+	bool isSuccess;
+	Index index;
 	boost::recursive_mutex::scoped_lock scopedLock(map_.getRawDataMutex());
-	GridMap subMap = map_.getRawGridMap();
+	GridMap subMap = map_.getRawGridMap().getSubmap(requestedSubmapPosition, requestedSubmapLength, index, isSuccess);
 //	
 	scopedLock.unlock();
 
@@ -420,8 +422,9 @@ bool ElevationMapping::getSubmap(grid_map_msgs::GetGridMap::Request& request, gr
     GridMapRosConverter::toMessage(subMap, layers, response.map);
   }
 
-  ROS_DEBUG("Elevation submap responded with timestamp %f.", map_.getTimeOfLastFusion().toSec());
-  return true;
+  //ROS_DEBUG("Elevation submap responded with timestamp %f.", map_.getTimeOfLastFusion().toSec());
+	ROS_DEBUG("Elevation submap responded with NON-FUSED submap.");
+	return isSuccess;
 }
 
 bool ElevationMapping::clearMap(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)
