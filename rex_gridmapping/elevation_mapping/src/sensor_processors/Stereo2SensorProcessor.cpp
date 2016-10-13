@@ -64,7 +64,7 @@ bool Stereo2SensorProcessor::cleanPointCloud(const pcl::PointCloud<pcl::PointXYZ
 	
 	originalWidth_ = pointCloud->width;
 	auto start = std::chrono::steady_clock::now();
-	pcl::removeNaNFromPointCloud(*pointCloud, *pointCloud, indices_);
+//	pcl::removeNaNFromPointCloud(*pointCloud, *pointCloud, indices_);
 	auto mid = std::chrono::steady_clock::now();
 	pointCloud->is_dense = true;
 	//pointCloud->swap(*tempPointCloud_ptr);
@@ -136,6 +136,8 @@ bool Stereo2SensorProcessor::computeVariances(
   const Eigen::Matrix3f C_SB_transpose = rotationBaseToSensor_.transposed().toImplementation().cast<float>();
   const Eigen::Matrix3f B_r_BS_skew = kindr::getSkewMatrixFromVector(Eigen::Vector3f(translationBaseToSensorInBaseFrame_.toImplementation().cast<float>()));
 
+	auto start = std::chrono::steady_clock::now();
+	
   for (unsigned int i = 0; i < pointCloud->size(); ++i)
   {
     // For every point in point cloud.
@@ -150,13 +152,11 @@ bool Stereo2SensorProcessor::computeVariances(
     float measurementDistance = pointVector.norm();
 
     // Compute sensor covariance matrix (Sigma_S) with sensor model.
-    float varianceNormal = pow(sensorParameters_.at("depth_to_disparity_factor") / pow(disparity, 2), 2)
-        * ((sensorParameters_.at("p_5") * disparity + sensorParameters_.at("p_2"))
-            * sqrt(pow(sensorParameters_.at("p_3") * disparity + sensorParameters_.at("p_4") - getJ(i), 2)
-                    + pow(240 - getI(i), 2)) + sensorParameters_.at("p_1"));
-    float varianceLateral = pow(sensorParameters_.at("lateral_factor") * measurementDistance, 2);
-    Eigen::Matrix3f sensorVariance = Eigen::Matrix3f::Zero();
-    sensorVariance.diagonal() << varianceLateral, varianceLateral, varianceNormal;
+	  float varianceNormal = 0.0;
+	  float varianceLateral = 0.0;
+	  
+	  Eigen::Matrix3f sensorVariance = Eigen::Matrix3f::Zero();
+	  sensorVariance.diagonal() << varianceLateral, varianceLateral, varianceNormal;
 
     // Robot rotation Jacobian (J_q).
     const Eigen::Matrix3f C_SB_transpose_times_S_r_SP_skew = kindr::getSkewMatrixFromVector(Eigen::Vector3f(C_SB_transpose * pointVector));
@@ -169,17 +169,24 @@ bool Stereo2SensorProcessor::computeVariances(
     // Copy to list.
     variances(i) = heightVariance;
   }
+	
+	auto end = std::chrono::steady_clock::now();
+	auto diff1 = end - start;
+	double time1 = std::chrono::duration <double, std::milli> (diff1).count();
+	ROS_INFO("ElevationMap/varianceCalc: %i	%f", static_cast<int>(pointCloud->size()), time1);
 
   return true;
 }
 
 int Stereo2SensorProcessor::getI(int index)
 {
+	assert(1);
   return indices_[index]/originalWidth_;
 }
 
 int Stereo2SensorProcessor::getJ(int index)
 {
+	assert(1);
   return indices_[index]%originalWidth_;
 }
 
