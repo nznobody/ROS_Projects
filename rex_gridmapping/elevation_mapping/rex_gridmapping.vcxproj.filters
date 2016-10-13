@@ -115,6 +115,9 @@
     <None Include="config\robots\none.yaml">
       <Filter>cfg\robots</Filter>
     </None>
+    <None Include="config\sensor_processors\stereo2.yaml">
+      <Filter>cfg\sensor_processors</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
@@ -150,6 +153,9 @@
     <ClCompile Include="src\sensor_processors\StereoSensorProcessor.cpp">
       <Filter>src\sensor_processors</Filter>
     </ClCompile>
+    <ClCompile Include="src\sensor_processors\Stereo2SensorProcessor.cpp">
+      <Filter>src\sensor_processors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\elevation_mapping\ElevationMap.hpp">
@@ -180,6 +186,9 @@
       <Filter>include\sensor_processors</Filter>
     </ClInclude>
     <ClInclude Include="include\elevation_mapping\sensor_processors\LaserSensorProcessor.hpp">
+      <Filter>include\sensor_processors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\sensor_processors\Stereo2SensorProcessor.hpp">
       <Filter>include\sensor_processors</Filter>
     </ClInclude>
   </ItemGroup>

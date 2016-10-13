@@ -76,6 +76,7 @@ add_library(${PROJECT_NAME}_library
   src/sensor_processors/SensorProcessorBase.cpp
   src/sensor_processors/KinectSensorProcessor.cpp
   src/sensor_processors/StereoSensorProcessor.cpp
+  src/sensor_processors/Stereo2SensorProcessor.cpp
   src/sensor_processors/LaserSensorProcessor.cpp
   src/sensor_processors/PerfectSensorProcessor.cpp
 )
