@@ -63,6 +63,7 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="cfg\dyn_rex_gridmapping.cfg" />
     <None Include="config\custom_rosconsole.conf" />
     <None Include="config\elevation_maps\dense.yaml" />
     <None Include="config\elevation_maps\elev_rex.yaml" />

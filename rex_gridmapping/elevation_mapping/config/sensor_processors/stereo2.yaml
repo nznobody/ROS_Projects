@@ -1,15 +1,11 @@
 # For the Zed Camera, a WIP
 sensor_processor/type: Stereo2
 
-#These don't seem to exist for the ZED... Will ask on forums.
-sensor_processor/p_1: -0.17604699730873108
-sensor_processor/p_2: 0.027348300442099571
-sensor_processor/p_3: 0.0
-sensor_processor/p_4: 0.0
-sensor_processor/p_5: 0.0
-
 #This seems to be a constant error per distance. eg 0.001m error per meter of measurement LATTERALLY. Testing made up values atm
 sensor_processor/lateral_factor: 0.05
+
+#experimental scaling value
+sensor_processor/normal_factor: 0.05
 
 # This should be focal length * baseline. Units? For ZED VGA: 341.93*0.12
 sensor_processor/depth_to_disparity_factor: 41.0316
@@ -24,5 +20,3 @@ sensor_processor/down_sample_radius: 0.025
 #Outlier Removal filter
 sensor_processor/neighbour_radius: 0.25
 sensor_processor/min_neighbours: 5.0
-
-sensor_processor/robot_base_frame_id: base_link

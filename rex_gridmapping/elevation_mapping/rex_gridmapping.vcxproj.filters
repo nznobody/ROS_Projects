@@ -118,6 +118,9 @@
     <None Include="config\sensor_processors\stereo2.yaml">
       <Filter>cfg\sensor_processors</Filter>
     </None>
+    <None Include="cfg\dyn_rex_gridmapping.cfg">
+      <Filter>cfg</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

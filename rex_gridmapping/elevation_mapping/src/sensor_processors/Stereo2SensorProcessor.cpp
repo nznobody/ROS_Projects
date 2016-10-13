@@ -29,13 +29,9 @@ Stereo2SensorProcessor::~Stereo2SensorProcessor() {}
 bool Stereo2SensorProcessor::readParameters()
 {
   SensorProcessorBase::readParameters();
-  nodeHandle_.param("sensor_processor/p_1", sensorParameters_["p_1"], 0.0);
-  nodeHandle_.param("sensor_processor/p_2", sensorParameters_["p_2"], 0.0);
-  nodeHandle_.param("sensor_processor/p_3", sensorParameters_["p_3"], 0.0);
-  nodeHandle_.param("sensor_processor/p_4", sensorParameters_["p_4"], 0.0);
-  nodeHandle_.param("sensor_processor/p_5", sensorParameters_["p_5"], 0.0);
-  nodeHandle_.param("sensor_processor/lateral_factor", sensorParameters_["lateral_factor"], 0.0);
-  nodeHandle_.param("sensor_processor/depth_to_disparity_factor", sensorParameters_["depth_to_disparity_factor"], 0.0);
+	nodeHandle_.param("sensor_processor/lateral_factor", sensorParameters_["lateral_factor"], 0.05);
+	nodeHandle_.param("sensor_processor/normal_factor", sensorParameters_["normal_factor"], 1.0);
+  nodeHandle_.param("sensor_processor/depth_to_disparity_factor", sensorParameters_["depth_to_disparity_factor"], 40.0);
   nodeHandle_.param("robot_base_frame_id", robotBaseFrameId_, std::string("/base_link"));
   nodeHandle_.param("map_frame_id", mapFrameId_, std::string("/map"));
 
@@ -152,8 +148,9 @@ bool Stereo2SensorProcessor::computeVariances(
     float measurementDistance = pointVector.norm();
 
     // Compute sensor covariance matrix (Sigma_S) with sensor model.
-	  float varianceNormal = 0.0;
-	  float varianceLateral = 0.0;
+	  //Normal implements equation from thesis with d = 1
+	  float varianceNormal = pow(pow(measurementDistance, 2) / (4 * (sensorParameters_.at("depth_to_disparity_factor") + measurementDistance)), 2) * sensorParameters_.at("normal_factor");
+	  float varianceLateral = measurementDistance * sensorParameters_.at("lateral_factor");
 	  
 	  Eigen::Matrix3f sensorVariance = Eigen::Matrix3f::Zero();
 	  sensorVariance.diagonal() << varianceLateral, varianceLateral, varianceNormal;
