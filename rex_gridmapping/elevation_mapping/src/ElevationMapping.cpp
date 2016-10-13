@@ -11,6 +11,7 @@
 #include "elevation_mapping/ElevationMap.hpp"
 #include "elevation_mapping/sensor_processors/KinectSensorProcessor.hpp"
 #include "elevation_mapping/sensor_processors/StereoSensorProcessor.hpp"
+#include "elevation_mapping/sensor_processors/Stereo2SensorProcessor.hpp"
 #include "elevation_mapping/sensor_processors/LaserSensorProcessor.hpp"
 #include "elevation_mapping/sensor_processors/PerfectSensorProcessor.hpp"
 
@@ -179,6 +180,8 @@ bool ElevationMapping::readParameters()
     sensorProcessor_.reset(new KinectSensorProcessor(nodeHandle_, transformListener_));
   } else if (sensorType == "Stereo") {
     sensorProcessor_.reset(new StereoSensorProcessor(nodeHandle_, transformListener_));
+  } else if (sensorType == "Stereo2") {
+	sensorProcessor_.reset(new Stereo2SensorProcessor(nodeHandle_, transformListener_));
   } else if (sensorType == "Laser") {
     sensorProcessor_.reset(new LaserSensorProcessor(nodeHandle_, transformListener_));
   } else if (sensorType == "Perfect") {
