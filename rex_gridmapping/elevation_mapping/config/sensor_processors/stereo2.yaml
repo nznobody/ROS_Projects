@@ -5,7 +5,7 @@ sensor_processor/type: Stereo2
 sensor_processor/lateral_factor: 0.05
 
 #experimental scaling value
-sensor_processor/normal_factor: 0.05
+sensor_processor/normal_factor: 1.0
 
 # This should be focal length * baseline. Units? For ZED VGA: 341.93*0.12
 sensor_processor/depth_to_disparity_factor: 41.0316

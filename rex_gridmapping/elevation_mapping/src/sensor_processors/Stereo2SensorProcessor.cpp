@@ -140,15 +140,27 @@ bool Stereo2SensorProcessor::computeVariances(
 
     // Preparation.
     pcl::PointXYZRGB point = pointCloud->points[i];
-    double disparity = sensorParameters_.at("depth_to_disparity_factor")/point.z;
+    double disparity = abs(sensorParameters_.at("depth_to_disparity_factor")/point.z);
     Eigen::Vector3f pointVector(point.x, point.y, point.z); // S_r_SP
     float heightVariance = 0.0; // sigma_p
+
+	//Debugging
+	//double test1 = sensorParameters_.at("depth_to_disparity_factor");
+	//double test2 = sensorParameters_.at("depth_to_disparity_factor");
+	//double test3 = sensorParameters_.at("normal_factor");
+	//double test4 = sensorParameters_.at("lateral_factor");
 
     // Measurement distance.
     float measurementDistance = pointVector.norm();
 
     // Compute sensor covariance matrix (Sigma_S) with sensor model.
 	  //Normal implements equation from thesis with d = 1
+
+	//debugging
+
+	//double bottom = (4 * (sensorParameters_.at("depth_to_disparity_factor") + measurementDistance));
+	//double top = pow(measurementDistance, 2);
+
 	  float varianceNormal = pow(pow(measurementDistance, 2) / (4 * (sensorParameters_.at("depth_to_disparity_factor") + measurementDistance)), 2) * sensorParameters_.at("normal_factor");
 	  float varianceLateral = measurementDistance * sensorParameters_.at("lateral_factor");
 	  
