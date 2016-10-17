@@ -32,6 +32,8 @@
 
 //tf2
 #include <tf2/LinearMath/Quaternion.h>
+#include <tf2/LinearMath/Transform.h>
+#include <tf2_eigen/tf2_eigen.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_ros/static_transform_broadcaster.h>
 #include <geometry_msgs/TransformStamped.h>
@@ -232,6 +234,10 @@ main(int argc, char** argv)
 	transformStamped.transform.rotation.w = quat.w();
 	
 		//Set up TF object for base_link
+	//xyz transform needs to be converted from flat into zed _tracked frame...
+	tf2::Vector3	baseOffset;
+	tf2::Transform	baseTransform;
+	baseTransform.setRotation(quat);
 	transformStamped_base.header.stamp = ros::Time::now();
 	transformStamped_base.header.frame_id = "/zed_tracked_frame";
 	transformStamped_base.child_frame_id = "/base_link";
@@ -350,12 +356,19 @@ void	calib_thread()
 	transformStamped.transform.rotation.w = runningAverage.w();
 	
 	//Update base_link
+	tf2::Vector3	baseOffset;
+	tf2::Transform	baseTransform;
+	baseTransform.setRotation(tf2::Quaternion(runningAverage.x(), runningAverage.y(), runningAverage.z(), runningAverage.w()));
+	baseTransform = baseTransform.inverse();
+	baseOffset.setX(0.30);
+	baseOffset.setY(0.30);
+	baseOffset = baseTransform * baseOffset;
 	transformStamped_base.header.stamp = ros::Time::now();
 	transformStamped_base.header.frame_id = "/zed_tracked_frame";
 	transformStamped_base.child_frame_id = "/base_link";
-	transformStamped_base.transform.translation.x = 0.0;
-	transformStamped_base.transform.translation.y = 0.0;
-	transformStamped_base.transform.translation.z = 0.0;
+	transformStamped_base.transform.translation.x = baseOffset.x();
+	transformStamped_base.transform.translation.y = baseOffset.y();
+	transformStamped_base.transform.translation.z = baseOffset.z();
 	transformStamped_base.transform.rotation.x = runningAverage.inverse().x();
 	transformStamped_base.transform.rotation.y = runningAverage.inverse().y();
 	transformStamped_base.transform.rotation.z = runningAverage.inverse().z();
