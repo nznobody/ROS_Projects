@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rex_collision">
+  <xacro:property name="robotName" value="rex"/>
+  <xacro:property name="pelvisWidth" value="0.470"/>
+  <xacro:property name="upperLegDepth" value="0.15"/>
+  <xacro:property name="upperLegWidth" value="0.15"/>
+  <xacro:property name="upperLegHeight" value="0.43"/>
+  <xacro:property name="lowerLegDepth" value="0.15"/>
+  <xacro:property name="lowerLegWidth" value="0.15"/>
+  <xacro:property name="lowerLegHeight" value="0.416"/>
+  <xacro:property name="footDepth" value="0.366"/>
+  <xacro:property name="footWidth" value="0.190"/>
+  <xacro:property name="footHeight" value="0.144"/>
+  <xacro:property name="footBackToAnkle" value="0.126"/>
+  <xacro:property name="footInsideToAnkle" value="0.150"/>
+  
+  <!--NOTE: Floor to base_link distance = ${ref_foot}-footHeight-->
+  
+  <xacro:macro name="default_inertial" params="mass">
+    <inertial>
+      <mass value="${mass}"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </xacro:macro>
+  
+  <xacro:macro name="upperleg" params="prefix reflect">
+    <link name="${prefix}_upperleg">
+      <visual>
+        <geometry>
+          <box size="${upperLegDepth} ${upperLegWidth} ${upperLegHeight}"/>
+        </geometry>
+        <origin xyz="0 0 -${upperLegHeight/2}" rpy="0 0 0"/>
+        <material name="white">
+          <color rgba="1 1 1 1"/>
+        </material>
+      </visual>
+      <!--This is currently more of a place holder and not used...-->
+      <xacro:default_inertial mass="10"/>
+    </link>
+    <joint name="pelvis_to_${prefix}_upperleg" type="revolute">
+      <axis xyz="0 1 0"/>
+      <parent link="${robotName}_base_link"/>
+      <child link="${prefix}_upperleg"/>
+      <origin xyz="0 ${reflect*pelvisWidth/2} 0"/>
+      <limit effort="1000.0" lower="-${pi/4}" upper="${pi/4}" velocity="10"/>
+    </joint>
+  </xacro:macro>
+  
+  <xacro:macro name="lowerleg" params="prefix reflect">
+    <link name="${prefix}_lowerleg">
+      <visual>
+        <geometry>
+          <box size="${lowerLegDepth} ${lowerLegWidth} ${lowerLegHeight}"/>
+        </geometry>
+        <origin xyz="0 0 -${lowerLegHeight/2}" rpy="0 0 0"/>
+        <material name="white">
+          <color rgba="1 1 1 1"/>
+        </material>
+      </visual>
+      <!--This is currently more of a place holder and not used...-->
+      <xacro:default_inertial mass="10"/>
+    </link>
+    <joint name="${prefix}_upperleg_to_${prefix}_lowerleg" type="revolute">
+      <axis xyz="0 1 0"/>
+      <parent link="${prefix}_upperleg"/>
+      <child link="${prefix}_lowerleg"/>
+      <origin xyz="0 0 -${upperLegHeight}"/>
+      <limit effort="1000.0" lower="-${pi/4}" upper="${pi/4}" velocity="10"/>
+    </joint>
+  </xacro:macro>
+  
+  <xacro:macro name="foot" params="prefix reflect">
+    <link name="${prefix}_foot">
+      <visual>
+        <geometry>
+          <box size="${footDepth} ${footWidth} ${footHeight}"/>
+        </geometry>
+        <origin xyz="${footDepth/2-footBackToAnkle} ${reflect*(footWidth/2-footInsideToAnkle)} -${footHeight/2}" rpy="0 0 0"/>
+        <material name="white">
+          <color rgba="1 1 1 1"/>
+        </material>
+      </visual>
+      <!--This is currently more of a place holder and not used...-->
+      <xacro:default_inertial mass="10"/>
+    </link>
+    <joint name="${prefix}_lowerleg_to_${prefix}_foot" type="revolute">
+      <axis xyz="0 1 0"/>
+      <parent link="${prefix}_lowerleg"/>
+      <child link="${prefix}_foot"/>
+      <origin xyz="0 0 -${lowerLegHeight}"/>
+      <limit effort="1000.0" lower="-${pi/4}" upper="${pi/4}" velocity="10"/>
+    </joint>
+  </xacro:macro>
+  
+  <link name="${robotName}_base_link">
+    <visual>
+      <geometry>
+        <box size="0.10 0.411 0.332"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.160 0 -0.008"/>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <visual>
+      <geometry>
+        <box size="0.230 0.060 0.180"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.07 ${pelvisWidth/2} 0.040"/>
+      <material name="white">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <visual>
+      <geometry>
+        <box size="0.230 0.060 0.180"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.07 -${pelvisWidth/2} 0.040"/>
+      <material name="white">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <xacro:upperleg prefix="right" reflect="-1"/>
+  <xacro:upperleg prefix="left" reflect="1"/>
+  <xacro:lowerleg prefix="right" reflect="-1"/>
+  <xacro:lowerleg prefix="left" reflect="1"/>
+  <xacro:foot prefix="right" reflect="-1"/>
+  <xacro:foot prefix="left" reflect="1"/>
+</robot>
