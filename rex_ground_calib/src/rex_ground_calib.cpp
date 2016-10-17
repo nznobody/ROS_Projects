@@ -94,7 +94,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
 	// Mandatory
 	seg.setModelType(pcl::SACMODEL_PLANE);
 	seg.setMethodType(pcl::SAC_RANSAC);
-	if (floor_tolerance < 0.0)
+	if (floor_tolerance <= 0.0)
 		floor_tolerance = 0.10; //defualt the value
 	seg.setDistanceThreshold(floor_tolerance);
 
