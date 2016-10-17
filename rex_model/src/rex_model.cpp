@@ -151,7 +151,7 @@ int main(int argc, char *argv[])
 	}
 	if (!infile.eof())
 	{
-		std::cerr << "Fooey!\n";
+		//std::cerr << "Fooey!\n";
 	}
 	
 	//Set up publishers
