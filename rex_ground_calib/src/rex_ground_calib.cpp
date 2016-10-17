@@ -22,6 +22,7 @@
 #include <pcl/sample_consensus/model_types.h>
 #include <pcl/sample_consensus/method_types.h>
 #include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/filters/uniform_sampling.h>
 
 #include <ros/ros.h>
 #include <std_srvs/Empty.h>
