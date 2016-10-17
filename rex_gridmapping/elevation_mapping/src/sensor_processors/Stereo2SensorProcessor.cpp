@@ -68,31 +68,40 @@ bool Stereo2SensorProcessor::cleanPointCloud(const pcl::PointCloud<pcl::PointXYZ
 	int mid_count = static_cast<int>(pointCloud->size());
 	
 	// Create the filtering object
-	pcl::PassThrough<pcl::PointXYZRGB> pass;
-	pass.setInputCloud(pointCloud);
-	pass.setFilterFieldName("x");
-	pass.setFilterLimits(sensorParameters_.at("cutoff_min_depth"), sensorParameters_.at("cutoff_max_depth"));
-	//pass.setFilterLimitsNegative (true);
-	pass.filter(*pointCloud);
+	if (sensorParameters_.at("cutoff_min_depth") == sensorParameters_.at("cutoff_max_depth"))
+	{
+		pcl::PassThrough<pcl::PointXYZRGB> pass;
+		pass.setInputCloud(pointCloud);
+		pass.setFilterFieldName("x");
+		pass.setFilterLimits(sensorParameters_.at("cutoff_min_depth"), sensorParameters_.at("cutoff_max_depth"));
+		//pass.setFilterLimitsNegative (true);
+		pass.filter(*pointCloud);
+	}
 	
 	auto mid2 = std::chrono::steady_clock::now();
 	int mid_count2 = static_cast<int>(pointCloud->size());
 	
 	//Downsample:
-	pcl::UniformSampling<pcl::PointXYZRGB> uor;
-	uor.setInputCloud(pointCloud);
-	uor.setRadiusSearch(sensorParameters_.at("down_sample_radius"));
-	uor.filter(*pointCloud);
+	if (sensorParameters_.at("down_sample_radius"))
+	{
+		pcl::UniformSampling<pcl::PointXYZRGB> uor;
+		uor.setInputCloud(pointCloud);
+		uor.setRadiusSearch(sensorParameters_.at("down_sample_radius"));
+		uor.filter(*pointCloud);
+	}
 	
 	auto mid3 = std::chrono::steady_clock::now();
 	int mid_count3 = static_cast<int>(pointCloud->size());
 	
 	//Radius outlier removal
-	pcl::RadiusOutlierRemoval<pcl::PointXYZRGB> ror;
-	ror.setInputCloud(pointCloud);
-	ror.setRadiusSearch(sensorParameters_.at("neighbour_radius"));
-	ror.setMinNeighborsInRadius(sensorParameters_.at("min_neighbours"));
-	ror.filter(*pointCloud);
+	if (sensorParameters_.at("min_neighbours") && sensorParameters_.at("neighbour_radius"))
+	{
+		pcl::RadiusOutlierRemoval<pcl::PointXYZRGB> ror;
+		ror.setInputCloud(pointCloud);
+		ror.setRadiusSearch(sensorParameters_.at("neighbour_radius"));
+		ror.setMinNeighborsInRadius(sensorParameters_.at("min_neighbours"));
+		ror.filter(*pointCloud);
+	}
 	
 	auto end = std::chrono::steady_clock::now();
 	
@@ -106,7 +115,7 @@ bool Stereo2SensorProcessor::cleanPointCloud(const pcl::PointCloud<pcl::PointXYZ
 	double time3 = std::chrono::duration <double, std::milli> (diff3).count();
 	double time4 = std::chrono::duration <double, std::milli> (diff4).count();
 
-	ROS_INFO("ElevationMap: %i	%i	%i	%i	%i		%f	%f	%f	%f", previous_count, mid_count, mid_count2, mid_count3, static_cast<int>(pointCloud->size()),time1, time2, time3, time4);
+	ROS_DEBUG("ElevationMap: %i	%i	%i	%i	%i		%f	%f	%f	%f", previous_count, mid_count, mid_count2, mid_count3, static_cast<int>(pointCloud->size()),time1, time2, time3, time4);
 	return true;
 }
 
@@ -182,7 +191,7 @@ bool Stereo2SensorProcessor::computeVariances(
 	auto end = std::chrono::steady_clock::now();
 	auto diff1 = end - start;
 	double time1 = std::chrono::duration <double, std::milli> (diff1).count();
-	ROS_INFO("ElevationMap/varianceCalc: %i	%f", static_cast<int>(pointCloud->size()), time1);
+	ROS_DEBUG("ElevationMap/varianceCalc: %i	%f", static_cast<int>(pointCloud->size()), time1);
 
   return true;
 }
