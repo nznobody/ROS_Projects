@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(rex_gridmapping)
 
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
-
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
   grid_map_core
@@ -76,6 +74,7 @@ add_library(${PROJECT_NAME}_library
   src/sensor_processors/SensorProcessorBase.cpp
   src/sensor_processors/KinectSensorProcessor.cpp
   src/sensor_processors/StereoSensorProcessor.cpp
+  src/sensor_processors/Stereo2SensorProcessor.cpp
   src/sensor_processors/LaserSensorProcessor.cpp
   src/sensor_processors/PerfectSensorProcessor.cpp
 )
@@ -90,9 +89,7 @@ add_executable(
   src/elevation_mapping_node.cpp
 )
 
-target_link_libraries(${PROJECT_NAME}
-  ${PROJECT_NAME}_library
-)
+target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_library "${LIBRARIES_FROM_REFERENCES}")
 
 #############
 ## Testing ##

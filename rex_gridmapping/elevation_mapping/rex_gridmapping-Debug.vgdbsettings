@@ -43,6 +43,7 @@
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
+      <SelectedDirectories />
     </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
     <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>
@@ -55,7 +56,7 @@
     <RelativeSourceDirectory />
     <ConfigurationType>DEBUG</ConfigurationType>
     <BinaryDirectory>../../devel/lib/rex_gridmapping</BinaryDirectory>
-    <MainCMakeTarget>rex_gridmapping</MainCMakeTarget>
+    <MainCMakeTarget>${PROJECT_NAME}</MainCMakeTarget>
     <Toolchain>
       <Name>Default GCC toolchain on 10.0.10.212</Name>
       <UniqueID>com.sysprogs.toolchain.default-gcc</UniqueID>
@@ -90,7 +91,7 @@
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>10.0.10.212</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
@@ -109,7 +110,7 @@
     <CMakeCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>10.0.10.212</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
@@ -162,24 +163,20 @@
       <EnableAsyncExecutionMode>false</EnableAsyncExecutionMode>
       <EnableNonStopMode>false</EnableNonStopMode>
     </AdditionalGDBSettings>
-    <LaunchGDBSettings xsi:type="GDBLaunchParametersNewInstance">
-      <GDBEnvironment>
-        <Records>
-          <Record>
-            <VariableName>LANG</VariableName>
-            <Value>en_US.UTF-8</Value>
-          </Record>
-        </Records>
-      </GDBEnvironment>
-      <DebuggedProgram>$(TargetPath)</DebuggedProgram>
+    <LaunchGDBSettings xsi:type="GDBLaunchParametersAttach">
+      <DebuggedProgram>/home/ubuntu/rex_ws/devel/.private/rex_gridmapping/lib/rex_gridmapping/rex_gridmapping</DebuggedProgram>
       <GDBServerPort>2000</GDBServerPort>
-      <ProgramArguments />
+      <AttachMode>AttachByName</AttachMode>
+      <AutoAttachPID>0</AutoAttachPID>
+      <AutoAttachExecutable>$(TargetPath)</AutoAttachExecutable>
     </LaunchGDBSettings>
     <GenerateCtrlBreakInsteadOfCtrlC>false</GenerateCtrlBreakInsteadOfCtrlC>
+    <DeploymentTargetPath />
     <X11WindowMode>Local</X11WindowMode>
     <KeepConsoleAfterExit>false</KeepConsoleAfterExit>
     <RunGDBUnderSudo>false</RunGDBUnderSudo>
     <DeploymentMode>Auto</DeploymentMode>
+    <LdLibraryPath />
     <DeployWhenLaunchedWithoutDebugging>true</DeployWhenLaunchedWithoutDebugging>
   </Debug>
   <CustomBuild>
