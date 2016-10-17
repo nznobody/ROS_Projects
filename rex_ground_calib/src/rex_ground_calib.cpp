@@ -64,6 +64,7 @@ struct Vec4f
 
 //Global for thread sharing
 geometry_msgs::TransformStamped transformStamped;
+geometry_msgs::TransformStamped transformStamped_base;
 std::mutex	tf_lock;
 bool		b_update;
 std::vector <Eigen::Quaterniond> samplesQuat;
@@ -84,8 +85,22 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
 	if (floor_tolerance < 0.0)	//If first round, get parameter
 		thread_nh.getParam("floor_tolerance", floor_tolerance);
 	//Convert the sensor_msgs/PointCloud2 data to pcl/PointCloud
-	pcl::PointCloud<pcl::PointXYZ> cloud, cloud_g;
-	pcl::fromROSMsg(*input, cloud);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr ptr_cloud(new pcl::PointCloud<pcl::PointXYZ>());
+	pcl::fromROSMsg(*input, *ptr_cloud);
+	
+	//Downsample
+	size_t	pt_count = ptr_cloud->size();
+	
+	pcl::UniformSampling<pcl::PointXYZ> uor;
+	uor.setInputCloud(ptr_cloud);
+	uor.setRadiusSearch(0.025); //Hardcoded for now...
+	uor.filter(*ptr_cloud);
+	
+	ROS_WARN("REX_GroundCalib: Downsample: %i	%i", pt_count, ptr_cloud->size());
+	
+	if (!ptr_cloud->size())
+		return;
+	
 	pcl::ModelCoefficients coefficients;
 	pcl::PointIndices::Ptr inliers(new pcl::PointIndices());
 	// Create the segmentation object ==========================
@@ -100,7 +115,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
 	seg.setDistanceThreshold(floor_tolerance);
 
 	//Do segmentation ==========================================
-	seg.setInputCloud(cloud.makeShared());
+	seg.setInputCloud(ptr_cloud);
 	seg.segment(*inliers, coefficients);
 	
 	//Use the output ===========================================
@@ -108,7 +123,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
 	//	Eigen::Vector3d A((coefficients.values[0] / coefficients.values[2]), (coefficients.values[1] / coefficients.values[2]), (coefficients.values[3] / coefficients.values[2]));
 	//Closest point on plane (is perpendicular):
 	Eigen::Vector3d	perpendicular(-coefficients.values[0]*coefficients.values[3], -coefficients.values[1]*coefficients.values[3], -coefficients.values[2]*coefficients.values[3]);
-	Eigen::Vector3d	zaxis(0,0,-1);
+	Eigen::Vector3d	zaxis(0, 0, -1);
 	Eigen::Quaterniond	qangle = Eigen::Quaterniond().setFromTwoVectors(perpendicular, zaxis);
 	samplesQuat.push_back(qangle);
 	//This calculates the angle the transform needs to have to make plane flat!
@@ -216,6 +231,18 @@ main(int argc, char** argv)
 	transformStamped.transform.rotation.z = quat.z();
 	transformStamped.transform.rotation.w = quat.w();
 	
+		//Set up TF object for base_link
+	transformStamped_base.header.stamp = ros::Time::now();
+	transformStamped_base.header.frame_id = "/zed_tracked_frame";
+	transformStamped_base.child_frame_id = "/base_link";
+	transformStamped_base.transform.translation.x = 0.0;
+	transformStamped_base.transform.translation.y = 0.0;
+	transformStamped_base.transform.translation.z = 0.0;
+	transformStamped_base.transform.rotation.x = quat.x();
+	transformStamped_base.transform.rotation.y = quat.y();
+	transformStamped_base.transform.rotation.z = quat.z();
+	transformStamped_base.transform.rotation.w = quat.w();
+	
 	ros::Rate	loopRate(10);
 	
 	while (ros::ok())
@@ -223,6 +250,10 @@ main(int argc, char** argv)
 		tf_lock.lock();
 		transformStamped.header.stamp = ros::Time::now();
 		transform_odom_broadcaster.sendTransform(transformStamped);
+		
+		//Base_link
+		transformStamped_base.header.stamp = ros::Time::now();
+		transform_odom_broadcaster.sendTransform(transformStamped_base);
 		tf_lock.unlock();
 		
 		//Spin and sleep at the end
@@ -235,7 +266,7 @@ main(int argc, char** argv)
 	return 0;
 }
 
-bool callback(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response){
+bool callback(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response) {
 	if (t_callback.joinable())
 		t_callback.join();
 	t_callback = std::thread(calib_thread);
@@ -317,6 +348,18 @@ void	calib_thread()
 	transformStamped.transform.rotation.y = runningAverage.y();
 	transformStamped.transform.rotation.z = runningAverage.z();
 	transformStamped.transform.rotation.w = runningAverage.w();
+	
+	//Update base_link
+	transformStamped_base.header.stamp = ros::Time::now();
+	transformStamped_base.header.frame_id = "/zed_tracked_frame";
+	transformStamped_base.child_frame_id = "/base_link";
+	transformStamped_base.transform.translation.x = 0.0;
+	transformStamped_base.transform.translation.y = 0.0;
+	transformStamped_base.transform.translation.z = 0.0;
+	transformStamped_base.transform.rotation.x = runningAverage.inverse().x();
+	transformStamped_base.transform.rotation.y = runningAverage.inverse().y();
+	transformStamped_base.transform.rotation.z = runningAverage.inverse().z();
+	transformStamped_base.transform.rotation.w = runningAverage.inverse().w();
 	
 	std::cout << "Calib Thread closing" << std::endl;
 	
