@@ -19,13 +19,15 @@
 #include <iostream>
 #include <pcl/common/common_headers.h>
 #include <Eigen/Core>
+
  
 #include "../include/rex_interface/rex_interface.hpp"
 
 
 
 RexInterface::RexInterface(ros::NodeHandle& nodeHandle)
-	: nodeHandle_(nodeHandle)
+	: nodeHandle_(nodeHandle),
+	tfListener(tfBuffer)
 {
 	readParamters();
 	
@@ -41,6 +43,7 @@ RexInterface::RexInterface(ros::NodeHandle& nodeHandle)
 	
 	//Subscribe to messages
 	stepQueryPoseSubscriber_ = nodeHandle_.subscribe("/move_base_simple/goal", 1, &RexInterface::stepQueryCallback, this);
+	
 }
 
 RexInterface::~RexInterface()
@@ -120,32 +123,55 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 	geometry_msgs::Pose					footprint;
 	response.resultCode = ResultCode::ERROR;	//default to error
 	
+	geometry_msgs::TransformStamped transformStamped;
+	//Get transform to map
+	try {
+		transformStamped = tfBuffer.lookupTransform("map",
+			"base_link",
+			ros::Time(0),ros::Duration(1.0));
+	}
+	catch (tf2::TransformException &ex) {
+		ROS_WARN("%s", ex.what());
+		return false;
+	}
+	
+	//tf2::Vector3	footPosition;
+	Eigen::Vector3d	footPosition;
+	
 	//Check if the direction queried is handled. This should become generic eventually.
-	footprint.position.z = 0.0;	//Default z height
+	footPosition.z() = 0.0;	//Default z height
 	footprint.orientation.x = footprint.orientation.y = footprint.orientation.z = footprint.orientation.w = 0.0;	//Default orientation
 	switch (request.direction)
 	{
 	case OUTSIDE_N:
-		footprint.position.x = stepForwardDistance_;
-		footprint.position.y = 0.0;
+		footPosition.x() = stepForwardDistance_;
+		footPosition.y() = 0.0;
 		break;
 	case OUTSIDE_E:
-		footprint.position.x = 0.0;
-		footprint.position.y = stepSidewaysDistance_;
+		footPosition.x() = 0.0;
+		footPosition.y() =  stepSidewaysDistance_;
 		break;
 	case OUTSIDE_S:
-		footprint.position.x = -stepBackwardDistance_;
-		footprint.position.y = 0.0;
+		footPosition.x() = -stepBackwardDistance_;
+		footPosition.y() = 0.0;
 		break;
 	case OUTSIDE_W:
-		footprint.position.x = 0.0;
-		footprint.position.y = -stepSidewaysDistance_;
+		footPosition.x() = 0.0;
+		footPosition.y() = -stepSidewaysDistance_;
 		break;
 	default:
 		return false;	//Unhandled case, return an error.
 	}
+	
+	//Transform frames
+	Eigen::Affine3d	eigenTF = tf2::transformToEigen(transformStamped);
+	footPosition = eigenTF*footPosition;
+	//tf2::doTransform(footPosition, footPosition, transformStamped);
 
 	//load footprints into service message
+	footprint.position.x = footPosition.x();
+	footprint.position.y = footPosition.y();
+	footprint.position.z = footPosition.z();
 	footprintPath.poses.header.frame_id = footprintFrame_;
 	footprintPath.poses.header.stamp = ros::Time::now();
 	footprintPath.poses.poses.push_back(footprint);
@@ -163,13 +189,13 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 
 	//Testing Visualisation
 	visualization_msgs::Marker marker;
-	marker.header.frame_id = footprintFrame_;
+	marker.header.frame_id = "map";
 	marker.header.stamp = ros::Time();
 	marker.ns = "rex_interface";
 	marker.id = 0;
 	marker.type = visualization_msgs::Marker::CYLINDER;
 	marker.action = visualization_msgs::Marker::ADD;
-	marker.pose.position.x = footprint.position.x;
+	marker.pose.position.x = footprint.position.x; 
 	marker.pose.position.y = footprint.position.y;
 	marker.pose.position.z = footprint.position.z;
 	marker.pose.orientation.x = 0.0;
@@ -203,7 +229,7 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 bool RexInterface::readParamters()
 {
 	nodeHandle_.param("footprintServiceName", footprintServiceName_, std::string("/rex_traversibility/check_footprint_path"));
-	nodeHandle_.param("footprintFrame", footprintFrame_, std::string("/base_link"));
+	nodeHandle_.param("footprintFrame", footprintFrame_, std::string("base_link"));
 	nodeHandle_.param("stepForwardDistance", stepForwardDistance_, 0.40);
 	nodeHandle_.param("stepBackwardDistance", stepBackwardDistance_, 0.25);
 	nodeHandle_.param("stepSidwaysDistance", stepSidewaysDistance_, 0.10);
@@ -246,7 +272,7 @@ void RexInterface::stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	m
 	
 	//Testing Visualisation
 	visualization_msgs::Marker marker;
-	marker.header.frame_id = footprintFrame_;
+	marker.header.frame_id = "map";
 	marker.header.stamp = ros::Time();
 	marker.ns = "rex_interface";
 	marker.id = 0;
@@ -259,8 +285,8 @@ void RexInterface::stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	m
 	marker.pose.orientation.y = 0.0;
 	marker.pose.orientation.z = 0.0;
 	marker.pose.orientation.w = 1.0;
-	marker.scale.x = (footprintRadius_ * 2);
-	marker.scale.y = (footprintRadius_ * 2);
+	marker.scale.x = footprintRadius_;
+	marker.scale.y = footprintRadius_;
 	marker.scale.z = 0.1;
 	marker.color.a = 0.5; // Don't forget to set the alpha!
 	marker.color.r = 0.0;

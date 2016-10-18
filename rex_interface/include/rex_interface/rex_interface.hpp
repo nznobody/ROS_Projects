@@ -19,6 +19,12 @@
 
 #include <ros/ros.h>
 #include <std_srvs/Empty.h>
+#include <tf2_ros/transform_listener.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2/convert.h>
+#include <tf2_eigen/tf2_eigen.h>
+#include <geometry_msgs/TransformStamped.h>
+#include <geometry_msgs/Twist.h>
 #include <visualization_msgs/Marker.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <rex_interface/stepQuery.h>
@@ -67,6 +73,8 @@ private:
 	ros::ServiceServer stepForwardService_;
 	ros::ServiceServer stepService_;
 	ros::ServiceClient footprintCheckerSubscriber_;
+	tf2_ros::Buffer tfBuffer;
+	tf2_ros::TransformListener tfListener;
 	
 	//parameters
 	std::string footprintServiceName_;
