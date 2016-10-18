@@ -75,6 +75,7 @@ private:
 	double		stepBackwardDistance_;
 	double		stepSidewaysDistance_;
 	double		footprintRadius_;
+	double		safeTraverse_;
 	
 	/// <summary>Joystick sectors</summary>
 	enum EJoystickSector : int

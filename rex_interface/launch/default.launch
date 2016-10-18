@@ -1,10 +1,11 @@
 <launch>
 	<node pkg="rex_interface" type="rex_interface" name="rex_interface" output="screen">
     <param name="footprintServiceName" value="/rex_traversibility/check_footprint_path"/>
-    <param name="footprintFrame" value="map"/>
+    <param name="footprintFrame" value="/base_link"/>
     <param name="stepForwardDistance" value="0.40"/>
     <param name="stepBackwardDistance" value="0.25"/>
     <param name="stepSidwaysDistance" value="0.10"/>
     <param name="footprintRadius" value="0.15"/>
+    <param name="safeTraverse" value="0.75"/>
 	</node>
 </launch>

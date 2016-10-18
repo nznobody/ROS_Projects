@@ -176,8 +176,8 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 	marker.pose.orientation.y = 0.0;
 	marker.pose.orientation.z = 0.0;
 	marker.pose.orientation.w = 1.0;
-	marker.scale.x = footprintRadius_ * 2;
-	marker.scale.y = footprintRadius_ * 2;
+	marker.scale.x = footprintRadius_;
+	marker.scale.y = footprintRadius_;
 	marker.scale.z = 0.1;
 	marker.color.a = 0.5; // Don't forget to set the alpha!
 	marker.color.r = 0.0;
@@ -203,12 +203,13 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 bool RexInterface::readParamters()
 {
 	nodeHandle_.param("footprintServiceName", footprintServiceName_, std::string("/rex_traversibility/check_footprint_path"));
-	nodeHandle_.param("footprintFrame", footprintFrame_, std::string("map"));
+	nodeHandle_.param("footprintFrame", footprintFrame_, std::string("/base_link"));
 	nodeHandle_.param("stepForwardDistance", stepForwardDistance_, 0.40);
 	nodeHandle_.param("stepBackwardDistance", stepBackwardDistance_, 0.25);
 	nodeHandle_.param("stepSidwaysDistance", stepSidewaysDistance_, 0.10);
 	nodeHandle_.param("footprintRadius", footprintRadius_, 0.15);
-	return false;
+	nodeHandle_.param("safeTraverse", safeTraverse_, 0.80);
+	return true;
 }
 
 void RexInterface::stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	message)
