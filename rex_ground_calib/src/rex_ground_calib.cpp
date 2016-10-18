@@ -292,6 +292,10 @@ void	calib_thread()
 	thread_nh.getParam("input_cloud", input_cloud);
 	thread_nh.getParam("odom_frame", odom_frame);
 	thread_nh.getParam("camera_frame", camera_frame);
+	double offsetX, offsetY, offsetZ;
+	thread_nh.param("base_offset_x", offsetX, 0.0);
+	thread_nh.param("base_offset_y", offsetY, 0.0);
+	thread_nh.param("base_offset_z", offsetZ, 0.0);
 	
 	//Clear globals
 	samplesQuat.clear();
@@ -360,8 +364,9 @@ void	calib_thread()
 	tf2::Transform	baseTransform;
 	baseTransform.setRotation(tf2::Quaternion(runningAverage.x(), runningAverage.y(), runningAverage.z(), runningAverage.w()));
 	baseTransform = baseTransform.inverse();
-	baseOffset.setX(0.30);
-	baseOffset.setY(0.30);
+	baseOffset.setX(-offsetX);
+	baseOffset.setY(-offsetY);
+	baseOffset.setZ(-offsetZ);
 	baseOffset = baseTransform * baseOffset;
 	transformStamped_base.header.stamp = ros::Time::now();
 	transformStamped_base.header.frame_id = "/zed_tracked_frame";

@@ -5,5 +5,9 @@
     <param name="odom_frame" value="/odom"/>
 		<param name="camera_frame" value="/zed_initial_frame"/>
     <param name="floor_tolerance" value="0.0750"/>
+
+    <param name="base_offset_x" value="0.3"/>
+    <param name="base_offset_y" value="0.3"/>
+    <param name="base_offset_z" value="0.1"/>
 	</node>
 </launch>
