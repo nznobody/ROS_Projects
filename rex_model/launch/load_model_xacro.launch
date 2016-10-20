@@ -1,0 +1,18 @@
+<launch>
+
+	    <node pkg="tf2_ros" type="static_transform_publisher" name="rex_model_tf"
+		    args="0 0 0 0 0 0 base_link rex_base_link" />
+	
+      <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rex_model)/models/rex.xacro'" />
+      <param name="use_gui" value="False"/>
+      <node name="rex_model" pkg="rex_model" type="rex_model" >
+        <param name="joints" value="pelvis_to_right_upperleg,pelvis_to_left_upperleg,right_upperleg_to_right_lowerleg,left_upperleg_to_left_lowerleg,right_lowerleg_to_right_foot,left_lowerleg_to_left_foot"/>
+        <param name="angles" value="pelvis,left_upperleg,right_upperleg,left_lowerleg,right_lowerleg,left_foot,right_foot"/>
+        <param name="anglesFileName" value="$(find rex_model)/vrex_trace_angles.csv"/>
+      </node>
+      <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+        <rosparam param = "source_list">["rex_model/joints"]</rosparam>
+      </node>
+      <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+      <!--node name="rviz" pkg="rviz" type="rviz" args="-d $(find rex_model)/urdf.rviz" /-->
+</launch>

@@ -67,6 +67,15 @@
     <None Include="config\robot_buffer.yaml">
       <Filter>cfg</Filter>
     </None>
+    <None Include="config\filter_parameter_zed.yaml">
+      <Filter>cfg</Filter>
+    </None>
+    <None Include="config\filter_parameter_img.yaml">
+      <Filter>cfg</Filter>
+    </None>
+    <None Include="config\robot_zed.yaml">
+      <Filter>cfg</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\traversability_estimation_node.cpp">

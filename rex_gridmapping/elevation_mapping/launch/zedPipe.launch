@@ -1,0 +1,9 @@
+<launch>
+	<!--include file="$(find rex_gridmapping)/launch/visualization.launch" /-->
+	<env name="ROSCONSOLE_CONFIG_FILE" value="$(find rex_gridmapping)/config/custom_rosconsole.conf"/>
+ 	<node pkg="rex_gridmapping" type="rex_gridmapping" name="rex_gridmapping" output="screen">
+    	 <rosparam command="load" file="$(find rex_gridmapping)/config/robots/robot_rex.yaml" />
+    	 <rosparam command="load" file="$(find rex_gridmapping)/config/elevation_maps/map_zed.yaml" />
+    	 <rosparam command="load" file="$(find rex_gridmapping)/config/sensor_processors/perfect.yaml" />
+    </node>
+</launch>

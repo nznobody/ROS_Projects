@@ -11,6 +11,7 @@
 #include "elevation_mapping/ElevationMap.hpp"
 #include "elevation_mapping/sensor_processors/KinectSensorProcessor.hpp"
 #include "elevation_mapping/sensor_processors/StereoSensorProcessor.hpp"
+#include "elevation_mapping/sensor_processors/Stereo2SensorProcessor.hpp"
 #include "elevation_mapping/sensor_processors/LaserSensorProcessor.hpp"
 #include "elevation_mapping/sensor_processors/PerfectSensorProcessor.hpp"
 
@@ -179,6 +180,8 @@ bool ElevationMapping::readParameters()
     sensorProcessor_.reset(new KinectSensorProcessor(nodeHandle_, transformListener_));
   } else if (sensorType == "Stereo") {
     sensorProcessor_.reset(new StereoSensorProcessor(nodeHandle_, transformListener_));
+  } else if (sensorType == "Stereo2") {
+	sensorProcessor_.reset(new Stereo2SensorProcessor(nodeHandle_, transformListener_));
   } else if (sensorType == "Laser") {
     sensorProcessor_.reset(new LaserSensorProcessor(nodeHandle_, transformListener_));
   } else if (sensorType == "Perfect") {
@@ -393,18 +396,24 @@ bool ElevationMapping::getSubmap(grid_map_msgs::GetGridMap::Request& request, gr
     }
   }
 
-  boost::recursive_mutex::scoped_lock scopedLock(map_.getFusedDataMutex());
-  map_.fuseArea(requestedSubmapPosition, requestedSubmapLength, computeSurfaceNormals);
-
-  bool isSuccess;
-  Index index;
-  GridMap subMap = map_.getFusedGridMap().getSubmap(requestedSubmapPosition, requestedSubmapLength, index, isSuccess);
-	
-	//Lacking the variance layer, copy it from raw map for now
-	GridMap rawMap = map_.getRawGridMap();
-	subMap.add("variance", rawMap.get("variance"));
-	
-  scopedLock.unlock();
+//  boost::recursive_mutex::scoped_lock scopedLock(map_.getFusedDataMutex());
+//  map_.fuseArea(requestedSubmapPosition, requestedSubmapLength, computeSurfaceNormals);
+//
+//  bool isSuccess;
+//  Index index;
+//  GridMap subMap = map_.getFusedGridMap().getSubmap(requestedSubmapPosition, requestedSubmapLength, index, isSuccess);
+//	
+//	//Lacking the variance layer, copy it from raw map for now
+//	GridMap rawMap = map_.getRawGridMap();
+//	subMap.add("variance", rawMap.get("variance"));
+//	
+//	//Testing not fusing at all!
+	bool isSuccess;
+	Index index;
+	boost::recursive_mutex::scoped_lock scopedLock(map_.getRawDataMutex());
+	GridMap subMap = map_.getRawGridMap().getSubmap(requestedSubmapPosition, requestedSubmapLength, index, isSuccess);
+//	
+	scopedLock.unlock();
 
   if (request.layers.empty()) {
     GridMapRosConverter::toMessage(subMap, response.map);
@@ -416,8 +425,9 @@ bool ElevationMapping::getSubmap(grid_map_msgs::GetGridMap::Request& request, gr
     GridMapRosConverter::toMessage(subMap, layers, response.map);
   }
 
-  ROS_DEBUG("Elevation submap responded with timestamp %f.", map_.getTimeOfLastFusion().toSec());
-  return isSuccess;
+  //ROS_DEBUG("Elevation submap responded with timestamp %f.", map_.getTimeOfLastFusion().toSec());
+	ROS_DEBUG("Elevation submap responded with NON-FUSED submap.");
+	return isSuccess;
 }
 
 bool ElevationMapping::clearMap(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)

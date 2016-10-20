@@ -28,6 +28,13 @@
     <None Include="launch\default.launch">
       <Filter>launch</Filter>
     </None>
+    <None Include="srv\stepQuery.srv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="package.xml" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\rex_interface.cpp">
@@ -36,12 +43,6 @@
     <ClCompile Include="src\rex_interface_node.cpp">
       <Filter>src</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="package.xml" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\rex_interface\rex_interface.hpp">

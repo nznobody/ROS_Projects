@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 	ros::NodeHandle nh_ns("~");	//Local Namespace NodeHandle
 	
 	//Read parameters from server or launch file
-	nh_ns.getParam("input_topic", input_topic);
+	nh_ns.getParam("input_topic",input_topic);
 	
 	//Advertise service to get map
 	ros::ServiceServer service = nh_ns.advertiseService("getSubMap", mapSrvCallback);
@@ -87,8 +87,17 @@ void subCallback(const grid_map_msgs::GridMapConstPtr&	msg )
 bool mapSrvCallback(grid_map_msgs::GetGridMap::Request& request, grid_map_msgs::GetGridMap::Response& response)
 {
 	bool isSuccess = true;
-	ROS_INFO("Service requested a map");
+	ROS_INFO("Service requested a map from buffer node");
 	mtx_map_.lock();
+	//Check what layers were requested...
+	for (size_t i = 0; i < request.layers.size(); i++)
+	{
+		if (!map_.exists(request.layers[i]))
+		{
+			map_.add(request.layers[i]);
+			map_[request.layers[i]].setConstant(0.0);	//ensure values are all zero
+		}
+	}
 	grid_map::GridMapRosConverter::toMessage(map_, response.map);
 	mtx_map_.unlock();
 	return isSuccess;

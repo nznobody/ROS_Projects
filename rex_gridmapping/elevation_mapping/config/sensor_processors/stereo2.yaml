@@ -1,0 +1,22 @@
+# For the Zed Camera, a WIP
+sensor_processor/type: Stereo2
+
+#This seems to be a constant error per distance. eg 0.001m error per meter of measurement LATTERALLY. Testing made up values atm
+sensor_processor/lateral_factor: 0.05
+
+#experimental scaling value
+sensor_processor/normal_factor: 1.0
+
+# This should be focal length * baseline. Units? For ZED VGA: 341.93*0.12
+sensor_processor/depth_to_disparity_factor: 41.0316
+
+# Depth cutting filter, setting equal disables
+sensor_processor/cutoff_min_depth: 2.0
+sensor_processor/cutoff_max_depth: 6.0
+
+# Down sampling filter, setting to zero disables
+sensor_processor/down_sample_radius: 0.01
+
+#Outlier Removal filter, setting either to 0 disables
+sensor_processor/neighbour_radius: 0.25
+sensor_processor/min_neighbours: 0.0

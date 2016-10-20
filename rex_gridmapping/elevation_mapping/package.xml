@@ -19,6 +19,7 @@
   <depend>grid_map_msgs</depend>
   <depend>kindr</depend>
   <depend>kindr_ros</depend>
+  <depend>dynamic_reconfigure</depend>
   <depend>tf</depend>
   <depend>tf_conversions</depend>
   <depend>eigen_conversions</depend>

@@ -58,11 +58,14 @@
   <ItemGroup>
     <None Include="config\default.yaml" />
     <None Include="config\filter_parameter.yaml" />
+    <None Include="config\filter_parameter_img.yaml" />
     <None Include="config\filter_parameter_pcd.yaml" />
+    <None Include="config\filter_parameter_zed.yaml" />
     <None Include="config\robot.yaml" />
     <None Include="config\robot_buffer.yaml" />
     <None Include="config\robot_footprint.yaml" />
     <None Include="config\robot_pcd.yaml" />
+    <None Include="config\robot_zed.yaml" />
     <None Include="config\rosconsole.conf" />
     <None Include="config\visualization\traversability.yaml" />
     <None Include="launch\buffer.launch" />

@@ -1,0 +1,3 @@
+rosbag record /tf /tf_static /rex_gridmapping/elevation_map_raw /rex_traversibility/traversability_map /pose/filtered /camera/odom /odometry/filtered /camera/rgb/image_rect_color /camera/point_cloud/cloud -O
+
+rosbag record /tf /tf_static /rex_gridmapping/elevation_map_raw /rex_traversibility/traversability_map /pose/filtered /camera/odom /camera/rgb/image_rect_color -O

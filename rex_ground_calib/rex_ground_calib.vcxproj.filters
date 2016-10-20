@@ -28,6 +28,9 @@
     <None Include="launch\default.launch">
       <Filter>launch</Filter>
     </None>
+    <None Include="launch\custom_rosconsole.conf">
+      <Filter>cfg</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\rex_ground_calib.cpp">

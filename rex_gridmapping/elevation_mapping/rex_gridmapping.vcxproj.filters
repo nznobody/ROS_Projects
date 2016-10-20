@@ -43,12 +43,6 @@
     <None Include="rex_gridmapping-Release.vgdbsettings">
       <Filter>VisualGDB settings</Filter>
     </None>
-    <None Include="launch\zed.launch">
-      <Filter>launch</Filter>
-    </None>
-    <None Include="launch\visualization.launch">
-      <Filter>launch</Filter>
-    </None>
     <None Include="config\elevation_maps\elev_rex.yaml">
       <Filter>cfg\elevation_maps</Filter>
     </None>
@@ -100,6 +94,33 @@
     <None Include="config\custom_rosconsole.conf">
       <Filter>cfg</Filter>
     </None>
+    <None Include="launch\fake_tf.launch">
+      <Filter>launch</Filter>
+    </None>
+    <None Include="launch\pcd.launch">
+      <Filter>launch</Filter>
+    </None>
+    <None Include="launch\visualization.launch">
+      <Filter>launch</Filter>
+    </None>
+    <None Include="launch\zedPipe.launch">
+      <Filter>launch</Filter>
+    </None>
+    <None Include="config\elevation_maps\map_zed.yaml">
+      <Filter>cfg\elevation_maps</Filter>
+    </None>
+    <None Include="config\elevation_maps\pcd.yaml">
+      <Filter>cfg\elevation_maps</Filter>
+    </None>
+    <None Include="config\robots\none.yaml">
+      <Filter>cfg\robots</Filter>
+    </None>
+    <None Include="config\sensor_processors\stereo2.yaml">
+      <Filter>cfg\sensor_processors</Filter>
+    </None>
+    <None Include="cfg\dyn_rex_gridmapping.cfg">
+      <Filter>cfg</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
@@ -135,6 +156,9 @@
     <ClCompile Include="src\sensor_processors\StereoSensorProcessor.cpp">
       <Filter>src\sensor_processors</Filter>
     </ClCompile>
+    <ClCompile Include="src\sensor_processors\Stereo2SensorProcessor.cpp">
+      <Filter>src\sensor_processors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\elevation_mapping\ElevationMap.hpp">
@@ -165,6 +189,9 @@
       <Filter>include\sensor_processors</Filter>
     </ClInclude>
     <ClInclude Include="include\elevation_mapping\sensor_processors\LaserSensorProcessor.hpp">
+      <Filter>include\sensor_processors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\elevation_mapping\sensor_processors\Stereo2SensorProcessor.hpp">
       <Filter>include\sensor_processors</Filter>
     </ClInclude>
   </ItemGroup>

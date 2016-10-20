@@ -1,0 +1,6 @@
+<launch>
+	<node pkg="rex_model" type="rex_model" name="rex_model" output="screen">
+		<param name="joints" value="pelvis_to_right_upperleg,pelvis_to_left_upperleg,right_upperleg_to_right_lowerleg,left_upperleg_to_left_lowerleg,right_lowerleg_to_right_foot,left_lowerleg_to_left_foot"/>
+    <param name="angles" value="pelvis,left_upperleg,right_upperleg,left_lowerleg,right_lowerleg,left_foot,right_foot"/>
+	</node>
+</launch>

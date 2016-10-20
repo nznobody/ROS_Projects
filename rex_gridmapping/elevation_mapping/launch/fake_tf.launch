@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="fakeTF_map_odom"
+    args="0 0 0 0 0 0 /map /odom" />
+	
+  <node pkg="tf2_ros" type="static_transform_publisher" name="fakeTF_odom_base"
+    args="0 0 0 0 0 0 /odom /base_link" />
+</launch>

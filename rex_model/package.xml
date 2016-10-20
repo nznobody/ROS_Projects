@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>rex_model</name>
+  <version>0.0.0</version>
+  <description>rex_model project created at 10/18/2016 11:03:51 AM</description>
+
+  <maintainer email="manu.lange@rexbionics.com">Manu Lange</maintainer>
+
+  <license>GNU</license>
+
+  <url type="website">https://github.com/nznobody/</url>
+
+  <!-- The *_depend tags are used to specify dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <run_depend>roscpp</run_depend>
+
+</package>
