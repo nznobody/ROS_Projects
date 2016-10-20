@@ -68,7 +68,7 @@ bool Stereo2SensorProcessor::cleanPointCloud(const pcl::PointCloud<pcl::PointXYZ
 	int mid_count = static_cast<int>(pointCloud->size());
 	
 	// Create the filtering object
-	if (sensorParameters_.at("cutoff_min_depth") == sensorParameters_.at("cutoff_max_depth"))
+	if (sensorParameters_.at("cutoff_min_depth") != sensorParameters_.at("cutoff_max_depth"))
 	{
 		pcl::PassThrough<pcl::PointXYZRGB> pass;
 		pass.setInputCloud(pointCloud);
