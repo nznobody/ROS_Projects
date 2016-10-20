@@ -149,7 +149,7 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 		break;
 	case OUTSIDE_E:
 		footPosition.x() = 0.0;
-		footPosition.y() =  stepSidewaysDistance_;
+		footPosition.y() =  -stepSidewaysDistance_;
 		break;
 	case OUTSIDE_S:
 		footPosition.x() = -stepBackwardDistance_;
@@ -157,7 +157,7 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 		break;
 	case OUTSIDE_W:
 		footPosition.x() = 0.0;
-		footPosition.y() = -stepSidewaysDistance_;
+		footPosition.y() = stepSidewaysDistance_;
 		break;
 	default:
 		return false;	//Unhandled case, return an error.
@@ -215,7 +215,7 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 	result = footprintService.response.result.front().traversability;
 	ROS_INFO("Traversibility: %f", result);
 	
-	if (result >= 0.9)	//Todo: Figure out why sometimes it returns values around 0.95 when some cells are 'unseen'
+	if (result >= safeTraverse_)	//Todo: Figure out why sometimes it returns values around 0.95 when some cells are 'unseen'
 		response.resultCode = ResultCode::OK;
 	else
 		response.resultCode = ResultCode::NOT_TRAVERSABLE;
