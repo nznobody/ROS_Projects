@@ -1,10 +1,10 @@
 submap_service: "/rex_gridmapping/get_submap"
-map_frame_id: "/odom"
-robot_frame_id: "/base_link"
+map_frame_id: "odom"
+robot_frame_id: "base_link"
 min_update_rate: 2.0
 map_center_x: 0.0
 map_center_y: 0.0
-map_length_x: 3.0
-map_length_y: 3.0
+map_length_x: 2.5
+map_length_y: 2.5
 footprint_yaw: 0.0
-max_gap_width: 0.1
+max_gap_width: 0.2

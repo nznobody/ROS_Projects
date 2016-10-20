@@ -1,0 +1,11 @@
+length_in_x: 10.0
+length_in_y: 10.0
+position_x: 0.0
+position_y: 0.0
+resolution: 0.025
+min_variance: 0.02
+max_variance: 0.5
+mahalanobis_distance_threshold: 2.5
+multi_height_noise: 0.06
+surface_normal_estimation_radius: 0.06
+surface_normal_positive_axis: z

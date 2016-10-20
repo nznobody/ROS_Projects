@@ -1,6 +1,4 @@
 # Traversability map filter parameters
-# crit_slope: critical_value: 1.56
-# 2/3 of 90 degrees: critical_value: 1.0471975512
 traversability_map_filters:
   - name: surfaceNormalsFilter
     type: traversabilityFilters/SurfaceNormalsFilter
@@ -11,21 +9,21 @@ traversability_map_filters:
     type: traversabilityFilters/SlopeFilter
     params:
       map_type: traversability_slope
-      critical_value: 1.0471975512
+      critical_value: 0.174533
   - name: stepFilter
     type: traversabilityFilters/StepFilter
     params:
       map_type: traversability_step
-      critical_value: 0.075
-      first_window_radius: 0.075
-      second_window_radius: 0.075
-      critical_cell_number: 30
+      critical_value: 0.10
+      first_window_radius: 0.05
+      second_window_radius: 0.05
+      critical_cell_number: 4
   - name: roughnessFilter
     type: traversabilityFilters/RoughnessFilter
     params:
       map_type: traversability_roughness
-      critical_value: 0.075
-      estimation_radius: 0.05
+      critical_value: 0.1
+      estimation_radius: 0.1
 # - name: minFilter
 #   type: gridMapFilters/MinFilter
 #   params:
@@ -47,7 +45,7 @@ traversability_map_filters:
     type: gridMapFilters/WeightedSumFilter
     params:
       layers: [traversability_slope, traversability_step, traversability_roughness]
-      weights: [0.2, 1, 0.2]
+      weights: [1, 1, 1]
       layer_out: traversability
       normalize: 1
   - name: deletionFilter
