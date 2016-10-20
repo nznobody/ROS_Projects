@@ -38,6 +38,7 @@
         <string>*.cmake</string>
         <string>CMakeLists.txt</string>
         <string>*.cmake</string>
+        <string>*.conf</string>
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
@@ -88,7 +89,7 @@
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>10.0.10.212</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
@@ -107,7 +108,7 @@
     <CMakeCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>10.0.10.212</HostName>
+        <HostName>10.0.10.213</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>

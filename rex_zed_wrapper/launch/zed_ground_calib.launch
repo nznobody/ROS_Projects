@@ -4,9 +4,9 @@
   <node pkg="tf2_ros" type="static_transform_publisher" name="zed_tracked_MODEL"
     args="0 0 0 0 0 0 1 zed_tracked_frame ZED_left_camera" />
 
-  <node pkg="tf2_ros" type="static_transform_publisher" name="zed_tracked_base_link"
-    args="0 0 0 0 0 0 1 zed_tracked_frame base_link" />
-  
+  <!--node pkg="tf2_ros" type="static_transform_publisher" name="zed_tracked_base_link"
+    args="0 0 0 0 0 0 1 zed_tracked_frame base_link" /-->
+
   <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom"
     args="0 0 0 0 0 0 1 map odom" />
 
@@ -20,8 +20,8 @@
 
     <node name="rex_zed_wrapper_node" pkg="rex_zed_wrapper" type="rex_zed_wrapper_node" args="$(arg svo_file)" output="screen">
 
-      <param name="resolution"            value="3" />
-      <param name="quality"               value="3" />
+      <param name="resolution"            value="2" />
+      <param name="quality"               value="1" />
       <param name="sensing_mode"          value="1" />
       <param name="frame_rate"            value="15" />
       <param name="odometry_DB"           value="" />
