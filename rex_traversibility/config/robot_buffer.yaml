@@ -1,7 +1,7 @@
 #submap_service: "/rex_gridmapping/get_submap"
 submap_service: "/rex_gridmap_buffer/getSubMap"
 map_frame_id: "map"
-robot_frame_id: "base_link"
+robot_frame_id: "/base_link"
 min_update_rate: 0.2
 map_center_x: 0.0
 map_center_y: 0.0
