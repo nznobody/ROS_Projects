@@ -228,6 +228,28 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 
 bool RexInterface::readParamters()
 {
+	//Added footprint for query
+	// Read footprint polygon.
+	XmlRpc::XmlRpcValue footprint;
+	if (nodeHandle_.getParam("footprint/footprint_polygon", footprint)) {
+		if (footprint.size() < 3) {
+			ROS_WARN("Footprint polygon must consist of at least 3 points. Only %i points found.", footprint.size());
+			footprintPoints_.clear();
+		}
+		else {
+			geometry_msgs::Point32 pt;
+			pt.z = 0.0;
+			for (int i = 0; i < footprint.size(); i++) {
+				pt.x = (double) footprint[i][0];
+				pt.y = (double) footprint[i][1];
+				footprintPoints_.push_back(pt);
+			}
+		}
+	}
+	else {
+		ROS_WARN("Traversability Map: No footprint polygon defined.");
+	}
+	
 	nodeHandle_.param("footprintServiceName", footprintServiceName_, std::string("/rex_traversibility/check_footprint_path"));
 	nodeHandle_.param("footprintFrame", footprintFrame_, std::string("base_link"));
 	nodeHandle_.param("stepForwardDistance", stepForwardDistance_, 0.40);
@@ -259,8 +281,15 @@ void RexInterface::stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	m
 	footprintPath.poses.header.stamp = ros::Time::now();
 	footprintPath.poses.poses.push_back(footprint);
 	
+	
 	//assign radius, this could later be a polygon
-	footprintPath.radius = footprintRadius_;
+	footprintPath.radius = 0.0;	//Testing polygons
+	footprintPath.footprint.header = footprintPath.poses.header;
+
+	for (size_t i = 0; i < footprintPoints_.size(); i++)
+	{
+		footprintPath.footprint.polygon.points.push_back(footprintPoints_[i]);
+	}
 	
 	//copy into service request
 	footprintService.request.path.push_back(footprintPath);
@@ -276,7 +305,7 @@ void RexInterface::stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	m
 	marker.header.stamp = ros::Time();
 	marker.ns = "rex_interface";
 	marker.id = 0;
-	marker.type = visualization_msgs::Marker::CYLINDER;
+	marker.type = visualization_msgs::Marker::LINE_STRIP;
 	marker.action = visualization_msgs::Marker::ADD;
 	marker.pose.position.x = footprint.position.x;
 	marker.pose.position.y = footprint.position.y;
@@ -285,9 +314,19 @@ void RexInterface::stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	m
 	marker.pose.orientation.y = 0.0;
 	marker.pose.orientation.z = 0.0;
 	marker.pose.orientation.w = 1.0;
-	marker.scale.x = footprintRadius_;
-	marker.scale.y = footprintRadius_;
-	marker.scale.z = 0.1;
+	
+	for (size_t i = 0; i < footprintPoints_.size(); i++)
+	{
+		geometry_msgs::Point test2;
+		test2.x = footprintPoints_[i].x;
+		test2.y = footprintPoints_[i].y;
+		test2.z = footprintPoints_[i].z;
+		marker.points.push_back(test2);
+	}
+	
+	marker.scale.x = 0.1;
+	marker.scale.y = 1.0;
+	marker.scale.z = 1.0;
 	marker.color.a = 0.5; // Don't forget to set the alpha!
 	marker.color.r = 0.0;
 	marker.color.g = 1.0;

@@ -223,6 +223,9 @@ class TraversabilityMap
 
   //! Verify footprint for roughness.
   bool checkForRoughness_;
+	
+	//Enable checking extra paramters on services. Defaults to disabled because I don't know what they do...
+	bool	checkExtras_;
 
   //! Verify overall robot inclination.
   bool checkRobotInclination_;

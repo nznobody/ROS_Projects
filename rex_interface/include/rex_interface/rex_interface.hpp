@@ -23,8 +23,10 @@
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <tf2/convert.h>
 #include <tf2_eigen/tf2_eigen.h>
+#include <vector>
 #include <geometry_msgs/TransformStamped.h>
 #include <geometry_msgs/Twist.h>
+#include <geometry_msgs/PolygonStamped.h>
 #include <visualization_msgs/Marker.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <rex_interface/stepQuery.h>
@@ -75,6 +77,9 @@ private:
 	ros::ServiceClient footprintCheckerSubscriber_;
 	tf2_ros::Buffer tfBuffer;
 	tf2_ros::TransformListener tfListener;
+	
+	//! Vertices of the footprint polygon in base frame.
+	std::vector<geometry_msgs::Point32> footprintPoints_;
 	
 	//parameters
 	std::string footprintServiceName_;

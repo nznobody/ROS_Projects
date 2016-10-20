@@ -88,6 +88,8 @@ bool TraversabilityMap::readParameters()
   nodeHandle_.param("footprint/check_robot_inclination", checkRobotInclination_, false);
   nodeHandle_.param("max_gap_width", maxGapWidth_, 0.3);
   nodeHandle_.param("traversability_map_filters/stepFilter/critical_value", criticalStepHeight_, 0.12);
+	
+	nodeHandle_.param("check_filters", checkExtras_, false);
 
   // Configure filter chain
   if (!filter_chain_.configure("traversability_map_filters", nodeHandle_)) {
@@ -474,16 +476,19 @@ bool TraversabilityMap::isTraversable(grid_map::Polygon& polygon, double& traver
   for (grid_map::PolygonIterator polygonIterator(traversabilityMap_, polygon);
       !polygonIterator.isPastEnd(); ++polygonIterator) {
 
-    // Check for slopes
-    if (!checkForSlope(*polygonIterator)) return false;
+	      if (checkExtras_)
+	      {
+		     // Check for slopes
+		      if (!checkForSlope(*polygonIterator)) return false;
 
-    // Check for steps
-    if (!checkForStep(*polygonIterator)) return false;
+		          // Check for steps
+		      if (!checkForStep(*polygonIterator)) return false;
 
-    // Check for roughness
-    if (checkForRoughness_) {
-      if(!checkForRoughness(*polygonIterator)) return false;
-    }
+		          // Check for roughness
+		      if (checkForRoughness_) {
+			      if (!checkForRoughness(*polygonIterator)) return false;
+		      }
+	      }
 
     nCells++;
     if (!traversabilityMap_.isValid(*polygonIterator,
@@ -528,69 +533,73 @@ bool TraversabilityMap::isTraversable(const grid_map::Position& center, const do
   for (grid_map::SpiralIterator iterator(traversabilityMap_, center, radiusMax);
       !iterator.isPastEnd(); ++iterator) {
 
-    if (radiusMin == 0.0) {
-      // Check for slopes
-      if (!checkForSlope(*iterator)) {
-        traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
-        return false;
-      }
+	      if (checkExtras_)
+	      {
+		      if (radiusMin == 0.0) {
+	   // Check for slopes
+			      if (!checkForSlope(*iterator)) {
+				      traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
+				      return false;
+			      }
 
-      // Check for steps
-      if (!checkForStep(*iterator)) {
-        traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
-        return false;
-      }
+			            // Check for steps
+			      if (!checkForStep(*iterator)) {
+				      traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
+				      return false;
+			      }
 
-      // Check for roughness
-      if (checkForRoughness_) {
-        if (!checkForRoughness(*iterator)) {
-          traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
-          return false;
-        }
-      }
-    } else {
-      // Check for slopes
-      if (!checkForSlope(*iterator)) {
-        double radius = iterator.getCurrentRadius();
-        if (radius <= radiusMin) {
-          traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
-          return false;
-        }
-        double factor = ((radius - radiusMin) / (radiusMax - radiusMin) + 1.0) / 2.0;
-        traversability *= factor / nCells;
-        traversabilityMap_.at("traversability_footprint", indexCenter) = traversability;
-        return true;
-      }
+			            // Check for roughness
+			      if (checkForRoughness_) {
+				      if (!checkForRoughness(*iterator)) {
+					      traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
+					      return false;
+				      }
+			      }
+		      }
+		      else {
+		        // Check for slopes
+			      if (!checkForSlope(*iterator)) {
+				      double radius = iterator.getCurrentRadius();
+				      if (radius <= radiusMin) {
+					      traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
+					      return false;
+				      }
+				      double factor = ((radius - radiusMin) / (radiusMax - radiusMin) + 1.0) / 2.0;
+				      traversability *= factor / nCells;
+				      traversabilityMap_.at("traversability_footprint", indexCenter) = traversability;
+				      return true;
+			      }
 
-      // Check for steps
-      if (!checkForStep(*iterator)) {
-        double radius = iterator.getCurrentRadius();
-        if (radius <= radiusMin) {
-          traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
-          return false;
-        }
-        double factor = ((radius - radiusMin) / (radiusMax - radiusMin) + 1.0) / 2.0;
-        traversability *= factor / nCells;
-        traversabilityMap_.at("traversability_footprint", indexCenter) = traversability;
-        return true;
-      }
+			            // Check for steps
+			      if (!checkForStep(*iterator)) {
+				      double radius = iterator.getCurrentRadius();
+				      if (radius <= radiusMin) {
+					      traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
+					      return false;
+				      }
+				      double factor = ((radius - radiusMin) / (radiusMax - radiusMin) + 1.0) / 2.0;
+				      traversability *= factor / nCells;
+				      traversabilityMap_.at("traversability_footprint", indexCenter) = traversability;
+				      return true;
+			      }
 
-      // Check for roughness
-      if (checkForRoughness_) {
-        if (!checkForRoughness(*iterator)) {
-          double radius = iterator.getCurrentRadius();
-          if (radius <= radiusMin) {
-            traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
-            return false;
-          }
-          double factor = ((radius - radiusMin) / (radiusMax - radiusMin) + 1.0) / 2.0;
-          traversability *= factor / nCells;
-          traversabilityMap_.at("traversability_footprint", indexCenter) = traversability;
-          return true;
-        }
-      }
-    }
+			            // Check for roughness
+			      if (checkForRoughness_) {
+				      if (!checkForRoughness(*iterator)) {
+					      double radius = iterator.getCurrentRadius();
+					      if (radius <= radiusMin) {
+						      traversabilityMap_.at("traversability_footprint", indexCenter) = 0.0;
+						      return false;
+					      }
+					      double factor = ((radius - radiusMin) / (radiusMax - radiusMin) + 1.0) / 2.0;
+					      traversability *= factor / nCells;
+					      traversabilityMap_.at("traversability_footprint", indexCenter) = traversability;
+					      return true;
+				      }
+			      }
+		      }
 
+	      }
     nCells++;
     if (!traversabilityMap_.isValid(*iterator,
                                     traversabilityType_)) {
