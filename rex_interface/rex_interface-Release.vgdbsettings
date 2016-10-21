@@ -9,14 +9,14 @@
       <LocalDirForRelativePaths />
     </CustomSourceDirectories>
     <BuildHost>
-      <HostName>10.0.10.213</HostName>
+      <HostName>192.168.56.111</HostName>
       <Transport>SSH</Transport>
       <UserName>ubuntu</UserName>
     </BuildHost>
     <MainSourceTransferCommand>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <RemoteHost>
-        <HostName>10.0.10.213</HostName>
+        <HostName>192.168.56.111</HostName>
         <Transport>SSH</Transport>
         <UserName>ubuntu</UserName>
       </RemoteHost>
@@ -42,7 +42,6 @@
       </FileMasks>
       <TransferNewFilesOnly>true</TransferNewFilesOnly>
       <IncludeSubdirectories>true</IncludeSubdirectories>
-      <SelectedDirectories />
     </MainSourceTransferCommand>
     <AllowChangingHostForMainCommands>false</AllowChangingHostForMainCommands>
     <SkipBuildIfNoSourceFilesChanged>false</SkipBuildIfNoSourceFilesChanged>

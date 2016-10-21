@@ -68,6 +68,8 @@ public:
    */
 	void stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	message );
 	
+	void visualise(const geometry_msgs::Pose footprint);
+	
 private:
 	ros::NodeHandle& nodeHandle_;
 	ros::Publisher markerPublisher_;

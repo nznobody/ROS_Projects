@@ -85,28 +85,7 @@ bool RexInterface::stepForward(std_srvs::Empty::Request& request, std_srvs::Empt
 		ROS_INFO("Not safe to step forward");
 	
 	//Testing Visualisation
-	visualization_msgs::Marker marker;
-	marker.header.frame_id = footprintFrame_;
-	marker.header.stamp = ros::Time();
-	marker.ns = "rex_interface";
-	marker.id = 0;
-	marker.type = visualization_msgs::Marker::CYLINDER;
-	marker.action = visualization_msgs::Marker::ADD;
-	marker.pose.position.x = footprint.position.x;
-	marker.pose.position.y = footprint.position.y;
-	marker.pose.position.z = footprint.position.z;
-	marker.pose.orientation.x = 0.0;
-	marker.pose.orientation.y = 0.0;
-	marker.pose.orientation.z = 0.0;
-	marker.pose.orientation.w = 1.0;
-	marker.scale.x = footprintRadius_*2;
-	marker.scale.y = footprintRadius_*2;
-	marker.scale.z = 0.1;
-	marker.color.a = 0.5; // Don't forget to set the alpha!
-	marker.color.r = 0.0;
-	marker.color.g = 1.0;
-	marker.color.b = 0.0;
-	markerPublisher_.publish(marker);
+	visualise(footprint);
 	
 	double test = 0.0;
 	test = footprintService.response.result.front().traversability;
@@ -175,9 +154,15 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 	footprintPath.poses.header.frame_id = footprintFrame_;
 	footprintPath.poses.header.stamp = ros::Time::now();
 	footprintPath.poses.poses.push_back(footprint);
+	
+	//Using polygon
+	footprintPath.radius = 0.0;	//Testing polygons
+	footprintPath.footprint.header = footprintPath.poses.header;
 
-	//assign radius, this could later be a polygon
-	footprintPath.radius = footprintRadius_;
+	for (size_t i = 0; i < footprintPoints_.size(); i++)
+	{
+		footprintPath.footprint.polygon.points.push_back(footprintPoints_[i]);
+	}
 
 	//copy into service request
 	footprintService.request.path.push_back(footprintPath);
@@ -188,28 +173,7 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 	footprintCheckerSubscriber_.call(footprintService);
 
 	//Testing Visualisation
-	visualization_msgs::Marker marker;
-	marker.header.frame_id = "map";
-	marker.header.stamp = ros::Time();
-	marker.ns = "rex_interface";
-	marker.id = 0;
-	marker.type = visualization_msgs::Marker::CYLINDER;
-	marker.action = visualization_msgs::Marker::ADD;
-	marker.pose.position.x = footprint.position.x; 
-	marker.pose.position.y = footprint.position.y;
-	marker.pose.position.z = footprint.position.z;
-	marker.pose.orientation.x = 0.0;
-	marker.pose.orientation.y = 0.0;
-	marker.pose.orientation.z = 0.0;
-	marker.pose.orientation.w = 1.0;
-	marker.scale.x = footprintRadius_;
-	marker.scale.y = footprintRadius_;
-	marker.scale.z = 0.1;
-	marker.color.a = 0.5; // Don't forget to set the alpha!
-	marker.color.r = 0.0;
-	marker.color.g = 1.0;
-	marker.color.b = 0.0;
-	markerPublisher_.publish(marker);
+	visualise(footprint);
 
 	double result = 0.0;
 	result = footprintService.response.result.front().traversability;
@@ -224,7 +188,6 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 
 	return true;
 }
-
 
 bool RexInterface::readParamters()
 {
@@ -300,6 +263,18 @@ void RexInterface::stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	m
 	footprintCheckerSubscriber_.call(footprintService);
 	
 	//Testing Visualisation
+	visualise(footprint);
+	
+	double test = 0.0;
+	test = footprintService.response.result.front().traversability;
+	ROS_INFO("Traversibility: %f", footprintService.response.result.front().traversability);
+	
+}
+
+
+void RexInterface::visualise(const geometry_msgs::Pose footprint)
+{
+	//Testing Visualisation
 	visualization_msgs::Marker marker;
 	marker.header.frame_id = "map";
 	marker.header.stamp = ros::Time();
@@ -310,10 +285,10 @@ void RexInterface::stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	m
 	marker.pose.position.x = footprint.position.x;
 	marker.pose.position.y = footprint.position.y;
 	marker.pose.position.z = footprint.position.z;
-	marker.pose.orientation.x = 0.0;
-	marker.pose.orientation.y = 0.0;
-	marker.pose.orientation.z = 0.0;
-	marker.pose.orientation.w = 1.0;
+	marker.pose.orientation.x = footprint.orientation.x;
+	marker.pose.orientation.y = footprint.orientation.y;
+	marker.pose.orientation.z = footprint.orientation.z;
+	marker.pose.orientation.w = footprint.orientation.w;
 	
 	for (size_t i = 0; i < footprintPoints_.size(); i++)
 	{
@@ -323,18 +298,12 @@ void RexInterface::stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	m
 		test2.z = footprintPoints_[i].z;
 		marker.points.push_back(test2);
 	}
-	
-	marker.scale.x = 0.1;
+	marker.scale.x = 0.05;
 	marker.scale.y = 1.0;
 	marker.scale.z = 1.0;
-	marker.color.a = 0.5; // Don't forget to set the alpha!
+	marker.color.a = 0.75; // Don't forget to set the alpha!
 	marker.color.r = 0.0;
 	marker.color.g = 1.0;
 	marker.color.b = 0.0;
 	markerPublisher_.publish(marker);
-	
-	double test = 0.0;
-	test = footprintService.response.result.front().traversability;
-	ROS_INFO("Traversibility: %f", footprintService.response.result.front().traversability);
-	
 }
