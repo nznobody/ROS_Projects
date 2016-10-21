@@ -88,17 +88,26 @@ bool mapSrvCallback(grid_map_msgs::GetGridMap::Request& request, grid_map_msgs::
 {
 	bool isSuccess = true;
 	ROS_INFO("Service requested a map from buffer node");
+	
+	//Only area of map, not whole map
+	grid_map::Position requestedSubmapPosition(request.position_x, request.position_y);
+	grid_map::Length requestedSubmapLength(request.length_x, request.length_y);
+	grid_map::Index index;
+	
 	mtx_map_.lock();
+	grid_map::GridMap subMap = map_.getSubmap(requestedSubmapPosition, requestedSubmapLength, index, isSuccess);
+	mtx_map_.unlock();
+	
 	//Check what layers were requested...
 	for (size_t i = 0; i < request.layers.size(); i++)
 	{
-		if (!map_.exists(request.layers[i]))
+		if (!subMap.exists(request.layers[i]))
 		{
-			map_.add(request.layers[i]);
-			map_[request.layers[i]].setConstant(0.0);	//ensure values are all zero
+			subMap.add(request.layers[i]);
+			subMap[request.layers[i]].setConstant(0.0);	//ensure values are all zero
 		}
 	}
-	grid_map::GridMapRosConverter::toMessage(map_, response.map);
-	mtx_map_.unlock();
+	grid_map::GridMapRosConverter::toMessage(subMap, response.map);
+	
 	return isSuccess;
 }
