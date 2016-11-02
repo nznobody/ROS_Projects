@@ -117,7 +117,7 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 	//tf2::Vector3	footPosition;
 	Eigen::Vector3d	footPosition;
 	
-	//Check if the direction queried is handled. This should become generic eventually.
+	//Check if the direction queried is handled. This should become generic eventually..
 	footPosition.z() = 0.0;	//Default z height
 	footprint.orientation.x = footprint.orientation.y = footprint.orientation.z = footprint.orientation.w = 0.0;	//Default orientation
 	switch (request.direction)
@@ -144,8 +144,15 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 	
 	//Transform frames
 	Eigen::Affine3d	eigenTF = tf2::transformToEigen(transformStamped);
+	Eigen::Affine3f	eigenTFf = eigenTF.cast<float>();	//need flaot form for PCL helper
 	footPosition = eigenTF*footPosition;
-	//tf2::doTransform(footPosition, footPosition, transformStamped);
+	float roll, pitch, yaw;
+	pcl::getEulerAngles(eigenTFf, roll, pitch, yaw);
+	//ROS_INFO("Roll: %f, Pitch: %f, Yaw: %f", roll,pitch,yaw);
+	float yawTOw = (1.570796 / yaw);	//For some reason the quarternion uses a scale of 2.0 per pi radians... Maybe it uses 2 * vector length, which I set to 1.0?
+	//Set rotation
+	footprint.orientation.z = 1.0;
+	footprint.orientation.w = yawTOw;
 
 	//load footprints into service message
 	footprint.position.x = footPosition.x();
