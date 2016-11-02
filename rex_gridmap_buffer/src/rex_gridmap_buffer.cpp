@@ -19,9 +19,15 @@
 #include <iostream>
 #include <mutex>
 #include <pcl/common/common_headers.h>
+#include <pcl_conversions/pcl_conversions.h>
+#include <pcl/point_types.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/PCLPointCloud2.h>
+#include <pcl/conversions.h>
 #include <Eigen/Core>
 
 #include <ros/ros.h>
+#include <sensor_msgs/PointCloud2.h>
 #include <std_srvs/Empty.h>
 
 #include <grid_map_core/GridMap.hpp>
@@ -29,6 +35,7 @@
 #include <grid_map_msgs/GridMap.h>
 #include <grid_map_msgs/GetGridMap.h>
 #include <grid_map_ros/grid_map_ros.hpp>
+#include <grid_map_ros/GridMapRosConverter.hpp>
  
 #include "../include/rex_gridmap_buffer/rex_gridmap_buffer.hpp"
 
@@ -36,9 +43,12 @@
 std::mutex mtx_map_;
 grid_map::GridMap	map_;
 
+int counter = 0;
+
 //Declerations
 void subCallback(const grid_map_msgs::GridMapConstPtr&	msg);
 bool mapSrvCallback(grid_map_msgs::GetGridMap::Request& request, grid_map_msgs::GetGridMap::Response& response);
+bool savePCDCallback(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response);
 
 void mySigintHandler(int sig)
 {
@@ -65,6 +75,9 @@ int main(int argc, char *argv[])
 	
 	//Advertise service to get map
 	ros::ServiceServer service = nh_ns.advertiseService("getSubMap", mapSrvCallback);
+	
+	//Advertise service to get map
+	ros::ServiceServer service2 = nh_ns.advertiseService("savePCD", savePCDCallback);
 	
 	//Subscribe to gridmapping topic
 	ros::Subscriber sub = n.subscribe(input_topic, 2, subCallback);
@@ -110,4 +123,24 @@ bool mapSrvCallback(grid_map_msgs::GetGridMap::Request& request, grid_map_msgs::
 	grid_map::GridMapRosConverter::toMessage(subMap, response.map);
 	
 	return isSuccess;
+}
+
+bool savePCDCallback(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)
+{
+	if (map_.exists("elevation"))
+	{
+		sensor_msgs::PointCloud2 pointCloud;
+		mtx_map_.lock();
+		grid_map::GridMapRosConverter::toPointCloud(map_, "elevation", pointCloud);
+		mtx_map_.unlock();
+		pcl::PCLPointCloud2 pcl_pc2;
+		pcl_conversions::toPCL(pointCloud, pcl_pc2);
+		pcl::PointCloud<pcl::PointXYZ>::Ptr temp_cloud(new pcl::PointCloud<pcl::PointXYZ>);
+		pcl::fromPCLPointCloud2(pcl_pc2, *temp_cloud);
+		std::string uniqueName = "/home/ubuntu/Documents/GridMap_Export" + std::to_string(counter) + ".pcd";
+		pcl::io::savePCDFileASCII(uniqueName.c_str(), *temp_cloud);
+		ROS_INFO("PCD Saved from GridMap Buffer");
+		counter++;
+	}
+	return true;
 }
