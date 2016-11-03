@@ -64,7 +64,8 @@ bool RexInterface::stepForward(std_srvs::Empty::Request& request, std_srvs::Empt
 	footprint.orientation.y = footprint.orientation.z = footprint.orientation.w = 0.0;
 	
 	//load footprints into service message
-	footprintPath.poses.header.frame_id = footprintFrame_;
+	footprintPath.poses.header.frame_id = "map";
+	//footprintPath.poses.header.frame_id = footprintFrame_; //Test using map
 	footprintPath.poses.header.stamp = ros::Time::now();
 	footprintPath.poses.poses.push_back(footprint);
 	
@@ -150,15 +151,22 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 	pcl::getEulerAngles(eigenTFf, roll, pitch, yaw);
 	//ROS_INFO("Roll: %f, Pitch: %f, Yaw: %f", roll,pitch,yaw);
 	float yawTOw = (1.570796 / yaw);	//For some reason the quarternion uses a scale of 2.0 per pi radians... Maybe it uses 2 * vector length, which I set to 1.0?
+	//bug may be the normalisation of quart. Testing
+	Eigen::Quaternion<double>	testing;
+	tf2::Quaternion	normalQuat;
+	normalQuat.setRPY(0.0, 0.0, yaw);
+	normalQuat.normalize();
 	//Set rotation
-	footprint.orientation.z = 1.0;
-	footprint.orientation.w = yawTOw;
+	footprint.orientation.x = normalQuat.x();
+	footprint.orientation.y = normalQuat.y();
+	footprint.orientation.z = normalQuat.z();
+	footprint.orientation.w = normalQuat.w();
 
 	//load footprints into service message
 	footprint.position.x = footPosition.x();
 	footprint.position.y = footPosition.y();
-	footprint.position.z = footPosition.z();
-	footprintPath.poses.header.frame_id = footprintFrame_;
+	footprint.position.z = 0.0; //footPosition.z(); //Testing force 0
+	footprintPath.poses.header.frame_id = footprintFrame_;	//Test using /map instead of footprintFrame_
 	footprintPath.poses.header.stamp = ros::Time::now();
 	footprintPath.poses.poses.push_back(footprint);
 	
@@ -173,6 +181,16 @@ bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interfac
 
 	//copy into service request
 	footprintService.request.path.push_back(footprintPath);
+	
+	ROS_INFO("Debugging: %f, %f, %f || %f, %f, %f, %f || %s", 
+		footprintPath.poses.poses.front().position.x,
+		footprintPath.poses.poses.front().position.y,
+		footprintPath.poses.poses.front().position.z,
+		footprintPath.poses.poses.front().orientation.x,
+		footprintPath.poses.poses.front().orientation.y,
+		footprintPath.poses.poses.front().orientation.z,
+		footprintPath.poses.poses.front().orientation.w,
+		footprintPath.poses.header.frame_id.c_str());
 
 	//call service
 	footprintCheckerSubscriber_.waitForExistence(); //wait for it
@@ -263,6 +281,16 @@ void RexInterface::stepQueryCallback(const geometry_msgs::PoseStampedConstPtr&	m
 	
 	//copy into service request
 	footprintService.request.path.push_back(footprintPath);
+	
+	ROS_INFO("Debugging: %f, %f, %f || %f, %f, %f, %f || %s", 
+		footprintPath.poses.poses.front().position.x,
+		footprintPath.poses.poses.front().position.y,
+		footprintPath.poses.poses.front().position.z,
+		footprintPath.poses.poses.front().orientation.x,
+		footprintPath.poses.poses.front().orientation.y,
+		footprintPath.poses.poses.front().orientation.z,
+		footprintPath.poses.poses.front().orientation.w,
+		footprintPath.poses.header.frame_id.c_str());
 	
 	//call service
 	footprintCheckerSubscriber_.waitForExistence(); //wait for it
