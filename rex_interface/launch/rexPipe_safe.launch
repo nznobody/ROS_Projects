@@ -1,0 +1,13 @@
+<launch>
+	<node pkg="rex_interface" type="rex_interface" name="rex_interface" output="screen">
+    <!--Simply load the footprint from traversability package...-->
+    <rosparam command="load" file="$(find rex_traversibility)/config/robot_footprint.yaml"/>
+    <param name="footprintServiceName" value="/rex_traversibility/check_footprint_path"/>
+    <param name="footprintFrame" value="/base_link"/>
+    <param name="stepForwardDistance" value="0.35"/>
+    <param name="stepBackwardDistance" value="0.30"/>
+    <param name="stepSidwaysDistance" value="0.3"/>
+    <param name="footprintRadius" value="0.25"/>
+    <param name="safeTraverse" value="0.75"/>
+	</node>
+</launch>

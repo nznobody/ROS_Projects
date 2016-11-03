@@ -1,3 +1,7 @@
 rosbag record /tf /tf_static /rex_gridmapping/elevation_map_raw /rex_traversibility/traversability_map /pose/filtered /camera/odom /odometry/filtered /camera/rgb/image_rect_color /camera/point_cloud/cloud -O
 
 rosbag record /tf /tf_static /rex_gridmapping/elevation_map_raw /rex_traversibility/traversability_map /pose/filtered /camera/odom /camera/rgb/image_rect_color -O
+
+rosbag record /tf /tf_static /rex_gridmapping/elevation_map_raw_throttle /rex_traversibility/traversability_map_throttle /pose/filtered /camera/odom /camera/rgb/image_rect_color_throttle -O
+
+/rex_gridmapping/elevation_map_raw_throttle:=/rex_gridmapping/elevation_map_raw /rex_traversibility/traversability_map_throttle:=/rex_traversibility/traversability_map /camera/rgb/image_rect_color_throttle:=/camera/rgb/image_rect_color

@@ -19,13 +19,13 @@ traversability_map_filters:
       critical_value: 0.10
       first_window_radius: 0.075
       second_window_radius: 0.075
-      critical_cell_number: 30
-  - name: roughnessFilter
-    type: traversabilityFilters/RoughnessFilter
-    params:
-      map_type: traversability_roughness
-      critical_value: 0.075
-      estimation_radius: 0.05
+      critical_cell_number: 10
+#  - name: roughnessFilter
+#    type: traversabilityFilters/RoughnessFilter
+#    params:
+#      map_type: traversability_roughness
+#      critical_value: 0.075
+#      estimation_radius: 0.05
 # - name: minFilter
 #   type: gridMapFilters/MinFilter
 #   params:
@@ -46,8 +46,8 @@ traversability_map_filters:
   - name: weightedSumFilter
     type: gridMapFilters/WeightedSumFilter
     params:
-      layers: [traversability_slope, traversability_step, traversability_roughness]
-      weights: [0.2, 1, 0.2]
+      layers: [traversability_slope, traversability_step] #layers: [traversability_slope, traversability_step, traversability_roughness]
+      weights: [0.1, 1]
       layer_out: traversability
       normalize: 1
   - name: deletionFilter

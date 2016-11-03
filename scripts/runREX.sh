@@ -3,6 +3,9 @@ unset GTK_IM_MODULE
 cd ~/rex_ws
 source devel/setup.bash
 
+source ~/scripts/coreAP.sh
+sleep 5
+
 roslaunch rosbridge_server rosbridge_websocket.launch &
 sleep 1
 ############################################################################
@@ -17,13 +20,14 @@ rosservice call /rex_ground_calib/trigger_calib
 sleep 10
 #Start the rest of the odometry pipeline:
 roslaunch rex_odom2pose zedPipe.launch &
-### Potentially remove / update these old sections
-#roslaunch rex_zed_wrapper ekf.launch & #this runs the odometry filter
 ############################################################################
-roslaunch rex_gridmapping zedDevPipe.launch &
-roslaunch rex_traversibility zedPipe.launch &
+roslaunch rex_gridmapping zedRex.launch &
+roslaunch rex_traversibility zedRex.launch &
 sleep 1
-roslaunch rex_interface default.launch &
+roslaunch rex_interface rexPipe_safe.launch &
 roslaunch rex_model load_model_xacro.launch &
 #rosrun rviz rviz -d ~/.rviz/zedPipe.rviz &
+
+source ~/scripts/throttle.sh
+
 echo "Done"

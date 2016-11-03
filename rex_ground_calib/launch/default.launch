@@ -7,7 +7,7 @@
     <param name="floor_tolerance" value="0.0750"/>
 
     <param name="base_offset_x" value="0.075"/>
-    <param name="base_offset_y" value="0.25"/>
+    <param name="base_offset_y" value="0.27"/>
     <param name="base_offset_z" value="0.05"/>
 	</node>
 </launch>
