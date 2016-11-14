@@ -50,6 +50,7 @@
 
 #define SAMPLE_COUNT 10
 #define DEBUG_MARKER 0
+#define BUFFER_COUNT 30
 
 bool	callback(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response);
 void	calib_thread();
@@ -80,6 +81,15 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input)
 {
 	if (!b_update)
 		return;
+	
+//	//Ignore the first few clouds as they are often noisy whilst camera adjusts
+//	static int ignore_counter = 0;
+//	if (ignore_counter < BUFFER_COUNT)
+//	{
+//		ignore_counter++;
+//		return;
+//	}
+	
 	//Get a local node handle
 	static ros::NodeHandle thread_nh("~");
 	//Get variables from variable server
@@ -301,10 +311,16 @@ void	calib_thread()
 	samplesQuat.clear();
 	samplesVect.clear();
 	samplesAngle.clear();
-	b_update = true;
+	
 	
 	// Create a ROS subscriber for the input point cloud
 	ros::Subscriber sub = thread_nh.subscribe(input_cloud, 1, cloud_cb);
+	
+	//Give the camera time to stabalise:
+	ROS_WARN("Waiting for camera to stabalise");
+	std::this_thread::sleep_for(std::chrono::milliseconds(5000));	//Sleep
+	//Enable processing
+	b_update = true;
 	
 	while (samplesAngle.size() < SAMPLE_COUNT)
 	{
