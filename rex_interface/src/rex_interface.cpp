@@ -51,50 +51,6 @@ RexInterface::~RexInterface()
 	nodeHandle_.shutdown();
 }
 
-bool RexInterface::stepForward(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)
-{
-	traversability_msgs::CheckFootprintPath	footprintService;
-	traversability_msgs::FootprintPath	footprintPath;
-	geometry_msgs::Pose					footprint;
-	
-	//Test code, should make a foot print at 0 0 0, facing in the x direction
-	footprint.position.x = footprint.position.y = footprint.position.z = 0.0;
-	//footprint.position.y = 0.0;
-	footprint.orientation.x = 1.0;
-	footprint.orientation.y = footprint.orientation.z = footprint.orientation.w = 0.0;
-	
-	//load footprints into service message
-	footprintPath.poses.header.frame_id = "map";
-	//footprintPath.poses.header.frame_id = footprintFrame_; //Test using map
-	footprintPath.poses.header.stamp = ros::Time::now();
-	footprintPath.poses.poses.push_back(footprint);
-	
-	//assign radius, this could later be a polygon
-	footprintPath.radius = footprintRadius_;
-	
-	//copy into service request
-	footprintService.request.path.push_back(footprintPath);
-	
-	//call service
-	footprintCheckerSubscriber_.waitForExistence(); //wait for it
-	ROS_DEBUG("Calling footprint checker service");
-	footprintCheckerSubscriber_.call(footprintService);
-	
-	if (footprintService.response.result.front().is_safe)
-		ROS_INFO("Safe to step forward");
-	else
-		ROS_INFO("Not safe to step forward");
-	
-	//Testing Visualisation
-	visualise(footprint);
-	
-	double test = 0.0;
-	test = footprintService.response.result.front().traversability;
-	ROS_INFO("Traversibility: %f", footprintService.response.result.front().traversability);
-	
-	return true;
-}
-
 bool RexInterface::step(rex_interface::stepQuery::Request& request, rex_interface::stepQuery::Response& response)
 {
 	//Establish local variables

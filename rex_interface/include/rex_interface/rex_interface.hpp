@@ -41,14 +41,6 @@ public:
 	~RexInterface();
 	
 	/*!
-   * Attempts to take a step forward form current position.
-   * @param request the ROS service request.
-   * @param response the ROS service response.
-   * @return true if successful.
-   */
-	bool stepForward(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response);
-	
-	/*!
    * Attempts to take a step in the given direction.
    * @param request the ROS service request.
    * @param response the ROS service response.
